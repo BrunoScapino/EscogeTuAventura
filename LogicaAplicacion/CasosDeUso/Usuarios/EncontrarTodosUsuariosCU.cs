@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using DTOs.DTOs;
+using DTOs.Mappers;
+using EscogeTuAventura.Entidades;
+using EscogeTuAventura.InterfacesDeRepositorio;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Usuarios;
+
+namespace LogicaAplicacion.CasosDeUso.Usuarios
+{
+    public class EncontrarTodosUsuariosCU : IEncontrarTodosUsuariosCU
+    {
+        private IRepositorioUsuarios repositorioUsuarios;
+
+        public EncontrarTodosUsuariosCU(IRepositorioUsuarios repositorioUsuarios)
+        {
+            this.repositorioUsuarios = repositorioUsuarios;
+        }
+
+        public List<UsuarioDTO> EncontrarTodos()
+        {
+            List<Usuario> usuarios = repositorioUsuarios.FindAll();
+            List<UsuarioDTO> usuariosDTO = new List<UsuarioDTO>();
+
+            foreach (Usuario usuario in usuarios)
+            {
+                usuariosDTO.Add(UsuarioMapper.ToDTO(usuario));
+            }
+
+            return usuariosDTO;
+        }
+    }
+}
