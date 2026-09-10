@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace EscogeTuAventura.ValueObjects.Usuario
 {
@@ -8,54 +7,42 @@ namespace EscogeTuAventura.ValueObjects.Usuario
     {
         public string Value { get; init; }
 
-        public Password(string plaintext)
+        private Password()
         {
-            if (string.IsNullOrWhiteSpace(plaintext))
-                throw new ArgumentException(
-                    "Password requerido",
-                    nameof(plaintext));
-
-            if (plaintext.Length < 8)
-                throw new ArgumentException(
-                    "Password debe tener al menos 8 caracteres",
-                    nameof(plaintext));
-
-            bool hasLower = false;
-            bool hasUpper = false;
-            bool hasDigit = false;
-            bool hasSpecial = false;
-
-            foreach (var ch in plaintext)
-            {
-                if (char.IsLower(ch))
-                    hasLower = true;
-                else if (char.IsUpper(ch))
-                    hasUpper = true;
-                else if (char.IsDigit(ch))
-                    hasDigit = true;
-                else
-                    hasSpecial = true;
-
-                if (hasLower && hasUpper && hasDigit && hasSpecial)
-                    break;
-            }
-
-            if (!(hasLower && hasUpper && hasDigit && hasSpecial))
-                throw new ArgumentException(
-                    "Password debe contener al menos una minúscula, una mayúscula, un número y un carácter especial",
-                    nameof(plaintext));
-
-            Value = plaintext;
+            Value = string.Empty;
         }
 
-        public bool Verify(string plaintext)
+        public Password(string value)
         {
-            return Value == plaintext;
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("La contraseña es requerida.");
+
+            if (value.Length < 8)
+                throw new ArgumentException("La contraseña debe tener al menos 8 caracteres.");
+
+            if (!value.Any(char.IsUpper))
+                throw new ArgumentException("La contraseña debe contener al menos una mayúscula.");
+
+            if (!value.Any(char.IsLower))
+                throw new ArgumentException("La contraseña debe contener al menos una minúscula.");
+
+            if (!value.Any(char.IsDigit))
+                throw new ArgumentException("La contraseña debe contener al menos un número.");
+
+            if (!value.Any(c => !char.IsLetterOrDigit(c)))
+                throw new ArgumentException("La contraseña debe contener al menos un carácter especial.");
+
+            Value = value;
+        }
+
+        public bool Verify(string value)
+        {
+            return Value == value;
         }
 
         public override string ToString()
         {
-            return "••••••••";
+            return "********";
         }
     }
 }
