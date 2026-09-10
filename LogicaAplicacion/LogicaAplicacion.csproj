@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="CasosDeUso\Categorias\" />
+    <Folder Include="CasosDeUso\Historias\" />
+    <Folder Include="CasosDeUso\Capitulos\" />
+    <Folder Include="CasosDeUso\Lecturas\" />
+    <Folder Include="CasosDeUso\Auditorias\" />
+    <Folder Include="CasosDeUso\Usuarios\" />
+    <Folder Include="InterfacesDeCasoDeUso\Auditorias\" />
+    <Folder Include="InterfacesDeCasoDeUso\Capitulos\" />
+    <Folder Include="InterfacesDeCasoDeUso\Categorias\" />
+    <Folder Include="InterfacesDeCasoDeUso\Historias\" />
+    <Folder Include="InterfacesDeCasoDeUso\Lecturas\" />
+    <Folder Include="InterfacesDeCasoDeUso\Usuarios\" />
+  </ItemGroup>
+
+</Project>
