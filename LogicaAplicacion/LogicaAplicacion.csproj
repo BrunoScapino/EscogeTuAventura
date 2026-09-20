@@ -7,15 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CasosDeUso\Categorias\" />
-    <Folder Include="CasosDeUso\Historias\" />
     <Folder Include="CasosDeUso\Capitulos\" />
     <Folder Include="CasosDeUso\Lecturas\" />
     <Folder Include="CasosDeUso\Auditorias\" />
     <Folder Include="InterfacesDeCasoDeUso\Auditorias\" />
     <Folder Include="InterfacesDeCasoDeUso\Capitulos\" />
-    <Folder Include="InterfacesDeCasoDeUso\Categorias\" />
-    <Folder Include="InterfacesDeCasoDeUso\Historias\" />
     <Folder Include="InterfacesDeCasoDeUso\Lecturas\" />
   </ItemGroup>
 

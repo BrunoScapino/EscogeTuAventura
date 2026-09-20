@@ -6,23 +6,23 @@ using EscogeTuAventura.Entidades;
 
 namespace DTOs.Mappers
 {
-    public static class CategoriaMapper
+    public class CategoriaMapper
     {
-        public static CategoriaDTO ToDTO(Categoria categoria)
-        {
-            return new CategoriaDTO
-            {
-                Id = categoria.Id,
-                Nombre = categoria.Nombre
-            };
-        }
-
-        public static Categoria ToEntity(CategoriaDTO dto)
+        public static Categoria FromDTO(CategoriaDTO dto)
         {
             return new Categoria
             {
                 Id = dto.Id,
                 Nombre = dto.Nombre
+            };
+        }
+
+        public static CategoriaDTO ToDTO(Categoria categoria)
+        {
+            return new CategoriaDTO()
+            {
+                Id = categoria.Id,
+                Nombre = categoria.Nombre
             };
         }
     }
