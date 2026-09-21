@@ -21,12 +21,17 @@ namespace DTOs.Mappers
 
         public static HistoriaDTO ToDTO(Historia historia)
         {
-            return new HistoriaDTO()
+            return new HistoriaDTO
             {
                 Id = historia.Id,
                 Titulo = historia.Titulo,
                 Sinopsis = historia.Sinopsis,
-                Estado = historia.Estado
+                Estado = historia.Estado,
+                CategoriasIds = historia.Categorias
+                    .Select(categoria => categoria.Id)
+                    .ToList(),
+                TituloCapituloInicial = historia.CapituloInicial?.Titulo ?? string.Empty,
+                TextoCapituloInicial = historia.CapituloInicial?.Texto ?? string.Empty
             };
         }
     }

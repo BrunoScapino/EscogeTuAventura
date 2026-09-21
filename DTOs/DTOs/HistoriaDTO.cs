@@ -14,5 +14,11 @@ namespace DTOs.DTOs
         public string Sinopsis { get; set; } = string.Empty;
 
         public EstadoHistoria Estado { get; set; }
+
+        public List<int> CategoriasIds { get; set; } = new List<int>();
+
+        public string TituloCapituloInicial { get; set; } = string.Empty;
+
+        public string TextoCapituloInicial { get; set; } = string.Empty;
     }
 }

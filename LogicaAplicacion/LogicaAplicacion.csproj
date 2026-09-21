@@ -7,11 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CasosDeUso\Capitulos\" />
     <Folder Include="CasosDeUso\Lecturas\" />
     <Folder Include="CasosDeUso\Auditorias\" />
     <Folder Include="InterfacesDeCasoDeUso\Auditorias\" />
-    <Folder Include="InterfacesDeCasoDeUso\Capitulos\" />
     <Folder Include="InterfacesDeCasoDeUso\Lecturas\" />
   </ItemGroup>
 

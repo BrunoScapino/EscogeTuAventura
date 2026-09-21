@@ -5,7 +5,6 @@ using EscogeTuAventura.InterfacesDelDominio;
 using System.Collections.Generic;
 using EscogeTuAventura.Excepciones;
 
-
 namespace EscogeTuAventura.Entidades
 {
     public class CapituloIntermedio : Capitulo
@@ -19,9 +18,6 @@ namespace EscogeTuAventura.Entidades
 
             if (string.IsNullOrWhiteSpace(Texto))
                 throw new CapituloException("El texto del capítulo es requerido.");
-
-            if (Opciones == null || Opciones.Count == 0)
-                throw new CapituloException("El capítulo intermedio debe tener al menos una opción.");
         }
     }
 }

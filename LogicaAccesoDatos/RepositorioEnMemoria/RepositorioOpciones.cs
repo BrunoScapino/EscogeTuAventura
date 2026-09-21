@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EscogeTuAventura.Entidades;
+using EscogeTuAventura.Excepciones;
 using EscogeTuAventura.InterfacesDeRepositorio;
 
 namespace LogicaAccesoDatos.RepositorioEnMemoria
@@ -21,9 +22,7 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
             foreach (Opcion opcion in opciones)
             {
                 if (opcion.Id == id)
-                {
                     return opcion;
-                }
             }
 
             return null;
@@ -31,17 +30,30 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
 
         public List<Opcion> FindAll()
         {
-            return opciones;
+            return new List<Opcion>(opciones);
         }
 
-        public void Update(Opcion obj)
+        public void Update(Opcion opcionActualizada)
         {
-            // Todavía no implementado
+            Opcion opcionExistente = FindById(opcionActualizada.Id);
+
+            if (opcionExistente == null)
+                throw new OpcionException("La opción no existe.");
+
+            opcionActualizada.Validar();
+
+            int posicion = opciones.IndexOf(opcionExistente);
+            opciones[posicion] = opcionActualizada;
         }
 
         public void Remove(int id)
         {
-            // Todavía no implementado
+            Opcion opcion = FindById(id);
+
+            if (opcion == null)
+                throw new OpcionException("La opción no existe.");
+
+            opciones.Remove(opcion);
         }
     }
 }

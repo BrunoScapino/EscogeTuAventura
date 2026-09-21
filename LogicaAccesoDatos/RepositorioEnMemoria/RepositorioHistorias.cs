@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EscogeTuAventura.Entidades;
+using EscogeTuAventura.Excepciones;
 using EscogeTuAventura.InterfacesDeRepositorio;
 
 namespace LogicaAccesoDatos.RepositorioEnMemoria
@@ -21,9 +22,7 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
             foreach (Historia historia in historias)
             {
                 if (historia.Id == id)
-                {
                     return historia;
-                }
             }
 
             return null;
@@ -31,17 +30,30 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
 
         public List<Historia> FindAll()
         {
-            return historias;
+            return new List<Historia>(historias);
         }
 
-        public void Update(Historia obj)
+        public void Update(Historia historiaActualizada)
         {
-            // Todavía no implementado
+            Historia historiaExistente = FindById(historiaActualizada.Id);
+
+            if (historiaExistente == null)
+                throw new HistoriaException("La historia no existe.");
+
+            historiaActualizada.Validar();
+
+            int posicion = historias.IndexOf(historiaExistente);
+            historias[posicion] = historiaActualizada;
         }
 
         public void Remove(int id)
         {
-            // Todavía no implementado
+            Historia historia = FindById(id);
+
+            if (historia == null)
+                throw new HistoriaException("La historia no existe.");
+
+            historias.Remove(historia);
         }
     }
 }

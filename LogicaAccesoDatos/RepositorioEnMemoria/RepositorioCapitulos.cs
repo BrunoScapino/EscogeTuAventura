@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EscogeTuAventura.Entidades;
+using EscogeTuAventura.Excepciones;
 using EscogeTuAventura.InterfacesDeRepositorio;
 
 namespace LogicaAccesoDatos.RepositorioEnMemoria
@@ -21,9 +22,7 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
             foreach (Capitulo capitulo in capitulos)
             {
                 if (capitulo.Id == id)
-                {
                     return capitulo;
-                }
             }
 
             return null;
@@ -31,17 +30,30 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
 
         public List<Capitulo> FindAll()
         {
-            return capitulos;
+            return new List<Capitulo>(capitulos);
         }
 
-        public void Update(Capitulo obj)
+        public void Update(Capitulo capituloActualizado)
         {
-            // Todavía no implementado
+            Capitulo capituloExistente = FindById(capituloActualizado.Id);
+
+            if (capituloExistente == null)
+                throw new CapituloException("El capítulo no existe.");
+
+            capituloActualizado.Validar();
+
+            int posicion = capitulos.IndexOf(capituloExistente);
+            capitulos[posicion] = capituloActualizado;
         }
 
         public void Remove(int id)
         {
-            // Todavía no implementado
+            Capitulo capitulo = FindById(id);
+
+            if (capitulo == null)
+                throw new CapituloException("El capítulo no existe.");
+
+            capitulos.Remove(capitulo);
         }
     }
 }
