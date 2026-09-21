@@ -22,6 +22,23 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
             foreach (Usuario usuario in usuarios)
             {
                 if (usuario.Id == id)
+                    return usuario;
+            }
+
+            return null;
+        }
+
+        public List<Usuario> FindAll()
+        {
+            return new List<Usuario>(usuarios);
+        }
+
+        public Usuario Login(string nombreUsuario, string password)
+        {
+            foreach (Usuario usuario in usuarios)
+            {
+                if (usuario.NombreUsuario == nombreUsuario &&
+                    usuario.Password.Verify(password))
                 {
                     return usuario;
                 }
@@ -30,19 +47,14 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
             return null;
         }
 
-        public List<Usuario> FindAll()
-        {
-            return usuarios;
-        }
-
         public void Update(Usuario obj)
         {
-            // Todavía no implementado
+            // Todavía no es necesario para los requerimientos actuales.
         }
 
         public void Remove(int id)
         {
-            // Todavía no implementado
+            // Todavía no es necesario para los requerimientos actuales.
         }
     }
 }

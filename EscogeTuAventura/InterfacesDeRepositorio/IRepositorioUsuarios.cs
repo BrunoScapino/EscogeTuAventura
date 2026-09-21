@@ -7,5 +7,6 @@ namespace EscogeTuAventura.InterfacesDeRepositorio
 {
     public interface IRepositorioUsuarios : IRepository<Usuario>
     {
+        Usuario Login(string nombreUsuario, string password);
     }
 }
