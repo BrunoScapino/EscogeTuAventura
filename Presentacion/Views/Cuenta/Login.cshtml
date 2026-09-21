@@ -1,0 +1,44 @@
+﻿@model Presentacion.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<h1>Iniciar sesión</h1>
+<p>Ingreso de administradores.</p>
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-controller="Cuenta" asp-action="Login" method="post">
+            <div asp-validation-summary="All"
+                 class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="NombreUsuario" class="form-label">
+                    Nombre de usuario
+                </label>
+                <input asp-for="NombreUsuario"
+                       class="form-control"
+                       autocomplete="username" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">
+                    Contraseña
+                </label>
+                <input asp-for="Password"
+                       type="password"
+                       class="form-control"
+                       autocomplete="current-password" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Ingresar
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -8,6 +8,8 @@ using LogicaAplicacion.InterfacesDeCasoDeUso.Usuarios;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Categorias;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Historias;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Capitulos;
+using LogicaAccesoDatos.EF;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Presentacion
 {
@@ -19,9 +21,21 @@ namespace Presentacion
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services
+            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Cuenta/Login";
+                options.AccessDeniedPath = "/Cuenta/AccesoDenegado";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.SlidingExpiration = true;
+            });
+
+            builder.Services.AddAuthorization();
 
             // Inicializamos los repositorios en memoria disponibles en el proyecto.
-            builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
+            builder.Services.AddScoped<EscogeTuAventuraContext>();
+            builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
             builder.Services.AddScoped<IRepositorioCategorias, RepositorioCategorias>();
             builder.Services.AddScoped<IRepositorioHistorias, RepositorioHistorias>();
             builder.Services.AddScoped<IRepositorioCapitulos, RepositorioCapitulos>();
@@ -68,6 +82,7 @@ namespace Presentacion
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();

@@ -1,0 +1,44 @@
+﻿@model List<DTOs.DTOs.UsuarioDTO>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h1>Usuarios</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        Crear usuario
+    </a>
+</p>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-info">
+        No hay usuarios registrados.
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre completo</th>
+                <th>Email</th>
+                <th>Nombre de usuario</th>
+                <th>Rol</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usuario in Model)
+            {
+                <tr>
+                    <td>@usuario.NombreCompleto</td>
+                    <td>@usuario.Email</td>
+                    <td>@usuario.NombreUsuario</td>
+                    <td>@usuario.Rol</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
