@@ -1,3 +1,14 @@
+using EscogeTuAventura.InterfacesDeRepositorio;
+using LogicaAccesoDatos.RepositorioEnMemoria;
+using LogicaAplicacion.CasosDeUso.Usuarios;
+using LogicaAplicacion.CasosDeUso.Categorias;
+using LogicaAplicacion.CasosDeUso.Historias;
+using LogicaAplicacion.CasosDeUso.Capitulos;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Usuarios;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Categorias;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Historias;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Capitulos;
+
 namespace Presentacion
 {
     public class Program
@@ -8,6 +19,41 @@ namespace Presentacion
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Inicializamos los repositorios en memoria disponibles en el proyecto.
+            builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
+            builder.Services.AddScoped<IRepositorioCategorias, RepositorioCategorias>();
+            builder.Services.AddScoped<IRepositorioHistorias, RepositorioHistorias>();
+            builder.Services.AddScoped<IRepositorioCapitulos, RepositorioCapitulos>();
+            builder.Services.AddScoped<IRepositorioOpciones, RepositorioOpciones>();
+            builder.Services.AddScoped<IRepositorioLecturas, RepositorioLecturas>();
+            builder.Services.AddScoped<IRepositorioAuditorias, RepositorioAuditorias>();
+
+            // Inicializamos los casos de uso de usuarios.
+            builder.Services.AddScoped<IAgregarUsuarioCU, AgregarUsuarioCU>();
+            builder.Services.AddScoped<IEncontrarTodosUsuariosCU, EncontrarTodosUsuariosCU>();
+            builder.Services.AddScoped<IObtenerUsuarioPorIdCU, ObtenerUsuarioPorIdCU>();
+            builder.Services.AddScoped<ILoginAdministradorCU, LoginAdministradorCU>();
+
+            // Inicializamos los casos de uso de categorias.
+            builder.Services.AddScoped<IAgregarCategoriaCU, AgregarCategoriaCU>();
+            builder.Services.AddScoped<IEncontrarTodasCategoriasCU, EncontrarTodasCategoriasCU>();
+            builder.Services.AddScoped<IObtenerCategoriaPorIdCU, ObtenerCategoriaPorIdCU>();
+
+            // Inicializamos los casos de uso de historias.
+            builder.Services.AddScoped<IAgregarHistoriaCU, AgregarHistoriaCU>();
+            builder.Services.AddScoped<IModificarHistoriaCU, ModificarHistoriaCU>();
+            builder.Services.AddScoped<IEliminarHistoriaCU, EliminarHistoriaCU>();
+            builder.Services.AddScoped<IPublicarHistoriaCU, PublicarHistoriaCU>();
+            builder.Services.AddScoped<IEncontrarTodasHistoriasCU, EncontrarTodasHistoriasCU>();
+            builder.Services.AddScoped<IObtenerHistoriaPorIdCU, ObtenerHistoriaPorIdCU>();
+            builder.Services.AddScoped<IEncontrarHistoriasPublicadasCU, EncontrarHistoriasPublicadasCU>();
+            builder.Services.AddScoped<IEncontrarHistoriasPublicadasPorCategoriaCU, EncontrarHistoriasPublicadasPorCategoriaCU>();
+
+            // Inicializamos los casos de uso de capitulos.
+            builder.Services.AddScoped<IAgregarCapituloCU, AgregarCapituloCU>();
+            builder.Services.AddScoped<IEncontrarCapitulosPorHistoriaCU, EncontrarCapitulosPorHistoriaCU>();
+            builder.Services.AddScoped<IObtenerCapituloPorIdCU, ObtenerCapituloPorIdCU>();
 
             var app = builder.Build();
 
