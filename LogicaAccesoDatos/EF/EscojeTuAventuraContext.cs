@@ -40,9 +40,19 @@ namespace LogicaAccesoDatos.EF
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Historia>()
+            .Property<int?>("CapituloInicialId");
+
+            modelBuilder.Entity<Historia>()
                 .HasOne(historia => historia.CapituloInicial)
                 .WithMany()
+                .HasForeignKey("CapituloInicialId")
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Historia>()
+                .HasMany(historia => historia.Categorias)
+                .WithMany()
+                .UsingEntity("HistoriaCategoria");
         }
     }
 }

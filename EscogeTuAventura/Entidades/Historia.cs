@@ -38,5 +38,48 @@ namespace EscogeTuAventura.Entidades
             if (CapituloInicial == null)
                 throw new HistoriaException("La historia debe tener un capítulo inicial.");
         }
+
+        public void ValidarPublicacion()
+        {
+            Validar();
+
+            if (!Capitulos.Contains(CapituloInicial))
+            {
+                throw new HistoriaException(
+                    "El capítulo inicial debe formar parte de la historia.");
+            }
+
+            foreach (Capitulo capitulo in Capitulos)
+            {
+                capitulo.Validar();
+
+                if (capitulo.Historia != this)
+                {
+                    throw new HistoriaException(
+                        "Todos los capítulos deben pertenecer a esta historia.");
+                }
+
+                if (capitulo is CapituloIntermedio intermedio)
+                {
+                    if (intermedio.Opciones.Count == 0)
+                    {
+                        throw new HistoriaException(
+                            "Todos los capítulos intermedios deben tener al menos una opción.");
+                    }
+
+                    foreach (Opcion opcion in intermedio.Opciones)
+                    {
+                        opcion.Validar();
+
+                        if (opcion.CapituloOrigen != intermedio ||
+                            !Capitulos.Contains(opcion.CapituloDestino))
+                        {
+                            throw new HistoriaException(
+                                "Las opciones deben conectar capítulos de la misma historia.");
+                        }
+                    }
+                }
+            }
+        }
     }
 }

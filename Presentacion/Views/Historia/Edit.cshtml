@@ -1,0 +1,99 @@
+﻿@model DTOs.DTOs.HistoriaDTO
+
+@{
+    ViewData["Title"] = "Editar historia";
+}
+
+<h1>Editar historia</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <input asp-for="Id" type="hidden" />
+
+            <div asp-validation-summary="All"
+                 class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Titulo" class="form-label">
+                    Título
+                </label>
+                <input asp-for="Titulo"
+                       class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Sinopsis" class="form-label">
+                    Sinopsis
+                </label>
+                <textarea asp-for="Sinopsis"
+                          class="form-control"
+                          rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CategoriasIds" class="form-label">
+                    Categorías
+                </label>
+                <select asp-for="CategoriasIds"
+                        asp-items="ViewBag.Categorias"
+                        class="form-select"
+                        multiple size="5" required>
+                </select>
+                <div class="form-text">
+                    Mantené Ctrl presionado para seleccionar varias categorías.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Estado" class="form-label">
+                    Estado
+                </label>
+                <select asp-for="Estado"
+                        asp-items="Html.GetEnumSelectList<EscogeTuAventura.Entidades.EstadoHistoria>()"
+                        class="form-select">
+                </select>
+                <div class="form-text">
+                    Para publicar, los capítulos intermedios deben tener
+                    opciones con destinos válidos dentro de la historia.
+                </div>
+            </div>
+
+            <h2 class="h4 mt-4">Capítulo inicial</h2>
+
+            <p>
+                Solo se puede modificar mientras la historia
+                no tenga otros capítulos.
+            </p>
+
+            <div class="mb-3">
+                <label asp-for="TituloCapituloInicial" class="form-label">
+                    Título del capítulo
+                </label>
+                <input asp-for="TituloCapituloInicial"
+                       class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TextoCapituloInicial" class="form-label">
+                    Texto del capítulo
+                </label>
+                <textarea asp-for="TextoCapituloInicial"
+                          class="form-control"
+                          rows="6" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Guardar cambios
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Volver
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

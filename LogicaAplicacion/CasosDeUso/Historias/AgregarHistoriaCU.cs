@@ -14,16 +14,13 @@ namespace LogicaAplicacion.CasosDeUso.Historias
     {
         private IRepositorioHistorias repositorioHistorias;
         private IRepositorioCategorias repositorioCategorias;
-        private IRepositorioCapitulos repositorioCapitulos;
 
         public AgregarHistoriaCU(
-            IRepositorioHistorias repositorioHistorias,
-            IRepositorioCategorias repositorioCategorias,
-            IRepositorioCapitulos repositorioCapitulos)
+         IRepositorioHistorias repositorioHistorias,
+         IRepositorioCategorias repositorioCategorias)
         {
             this.repositorioHistorias = repositorioHistorias;
             this.repositorioCategorias = repositorioCategorias;
-            this.repositorioCapitulos = repositorioCapitulos;
         }
 
         public void Agregar(HistoriaDTO historia)
@@ -56,7 +53,7 @@ namespace LogicaAplicacion.CasosDeUso.Historias
             nuevaHistoria.Capitulos.Add(capituloInicial);
 
             repositorioHistorias.Add(nuevaHistoria);
-            repositorioCapitulos.Add(capituloInicial);
+            
         }
     }
 }

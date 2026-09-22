@@ -51,11 +51,9 @@ namespace LogicaAccesoDatos.EF
         public Usuario Login(string nombreUsuario, string password)
         {
             Usuario? usuario = contexto.Usuarios
-                .FirstOrDefault(u =>
-                    u.NombreUsuario == nombreUsuario &&
-                    u.Password.Value == password);
+                .FirstOrDefault(u => u.NombreUsuario == nombreUsuario);
 
-            if (usuario == null)
+            if (usuario == null || !usuario.Password.Verify(password))
             {
                 throw new UsuarioException(
                     "Usuario o contraseña incorrectos.");

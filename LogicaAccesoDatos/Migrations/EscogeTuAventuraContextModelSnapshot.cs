@@ -94,16 +94,11 @@ namespace LogicaAccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("HistoriaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HistoriaId");
 
                     b.ToTable("Categorias");
                 });
@@ -116,7 +111,7 @@ namespace LogicaAccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CapituloInicialId")
+                    b.Property<int?>("CapituloInicialId")
                         .HasColumnType("int");
 
                     b.Property<int>("Estado")
@@ -226,6 +221,21 @@ namespace LogicaAccesoDatos.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("HistoriaCategoria", b =>
+                {
+                    b.Property<int>("CategoriasId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HistoriaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoriasId", "HistoriaId");
+
+                    b.HasIndex("HistoriaId");
+
+                    b.ToTable("HistoriaCategoria");
+                });
+
             modelBuilder.Entity("EscogeTuAventura.Entidades.CapituloFinal", b =>
                 {
                     b.HasBaseType("EscogeTuAventura.Entidades.Capitulo");
@@ -273,20 +283,12 @@ namespace LogicaAccesoDatos.Migrations
                     b.Navigation("Historia");
                 });
 
-            modelBuilder.Entity("EscogeTuAventura.Entidades.Categoria", b =>
-                {
-                    b.HasOne("EscogeTuAventura.Entidades.Historia", null)
-                        .WithMany("Categorias")
-                        .HasForeignKey("HistoriaId");
-                });
-
             modelBuilder.Entity("EscogeTuAventura.Entidades.Historia", b =>
                 {
                     b.HasOne("EscogeTuAventura.Entidades.CapituloIntermedio", "CapituloInicial")
                         .WithMany()
                         .HasForeignKey("CapituloInicialId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("CapituloInicial");
                 });
@@ -358,11 +360,24 @@ namespace LogicaAccesoDatos.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HistoriaCategoria", b =>
+                {
+                    b.HasOne("EscogeTuAventura.Entidades.Categoria", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EscogeTuAventura.Entidades.Historia", null)
+                        .WithMany()
+                        .HasForeignKey("HistoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("EscogeTuAventura.Entidades.Historia", b =>
                 {
                     b.Navigation("Capitulos");
-
-                    b.Navigation("Categorias");
                 });
 
             modelBuilder.Entity("EscogeTuAventura.Entidades.CapituloIntermedio", b =>

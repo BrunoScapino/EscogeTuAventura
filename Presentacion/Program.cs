@@ -36,8 +36,8 @@ namespace Presentacion
             // Inicializamos los repositorios en memoria disponibles en el proyecto.
             builder.Services.AddScoped<EscogeTuAventuraContext>();
             builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
-            builder.Services.AddScoped<IRepositorioCategorias, RepositorioCategorias>();
-            builder.Services.AddScoped<IRepositorioHistorias, RepositorioHistorias>();
+            builder.Services.AddScoped<IRepositorioCategorias, RepositorioCategoriasEF>();
+            builder.Services.AddScoped<IRepositorioHistorias, RepositorioHistoriasEF>();
             builder.Services.AddScoped<IRepositorioCapitulos, RepositorioCapitulos>();
             builder.Services.AddScoped<IRepositorioOpciones, RepositorioOpciones>();
             builder.Services.AddScoped<IRepositorioLecturas, RepositorioLecturas>();

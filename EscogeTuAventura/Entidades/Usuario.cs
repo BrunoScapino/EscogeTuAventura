@@ -4,6 +4,7 @@ using System.Text;
 using EscogeTuAventura.InterfacesDelDominio;
 using EscogeTuAventura.ValueObjects.Usuario;
 using EscogeTuAventura.Excepciones;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace EscogeTuAventura.Entidades
@@ -30,11 +31,19 @@ namespace EscogeTuAventura.Entidades
             if (string.IsNullOrWhiteSpace(Email))
                 throw new UsuarioException("El email es requerido.");
 
+            if (!new EmailAddressAttribute().IsValid(Email))
+                throw new UsuarioException("El email no tiene un formato válido.");
+
             if (string.IsNullOrWhiteSpace(NombreUsuario))
                 throw new UsuarioException("El nombre de usuario es requerido.");
 
+            if (!Enum.IsDefined(typeof(Rol), Rol))
+                throw new UsuarioException("El rol indicado no es válido.");
+
             if (Password == null)
                 throw new UsuarioException("La contraseña es requerida.");
+
+            Password.Validar();
         }
     }
 }

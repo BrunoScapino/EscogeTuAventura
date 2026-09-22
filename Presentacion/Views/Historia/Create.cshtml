@@ -1,0 +1,97 @@
+﻿@model DTOs.DTOs.HistoriaDTO
+
+@{
+    ViewData["Title"] = "Crear historia";
+    bool hayCategorias = ViewBag.HayCategorias == true;
+}
+
+<h1>Crear historia</h1>
+
+<p>
+    La historia se creará en estado Borrador,
+    con un capítulo inicial sin opciones.
+</p>
+
+@if (!hayCategorias)
+{
+    <div class="alert alert-warning">
+        No hay categorías disponibles.
+        Es necesario precargarlas en la base de datos
+        antes de crear una historia.
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All"
+                 class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Titulo" class="form-label">
+                    Título de la historia
+                </label>
+                <input asp-for="Titulo"
+                       class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Sinopsis" class="form-label">
+                    Sinopsis
+                </label>
+                <textarea asp-for="Sinopsis"
+                          class="form-control"
+                          rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CategoriasIds" class="form-label">
+                    Categorías
+                </label>
+                <select asp-for="CategoriasIds"
+                        asp-items="ViewBag.Categorias"
+                        class="form-select"
+                        multiple size="5" required>
+                </select>
+                <div class="form-text">
+                    Mantené presionada la tecla Ctrl para seleccionar
+                    varias categorías.
+                </div>
+            </div>
+
+            <h2 class="h4 mt-4">Capítulo inicial</h2>
+
+            <div class="mb-3">
+                <label asp-for="TituloCapituloInicial" class="form-label">
+                    Título del capítulo
+                </label>
+                <input asp-for="TituloCapituloInicial"
+                       class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TextoCapituloInicial" class="form-label">
+                    Texto del capítulo
+                </label>
+                <textarea asp-for="TextoCapituloInicial"
+                          class="form-control"
+                          rows="6" required></textarea>
+            </div>
+
+            @if (hayCategorias)
+            {
+                <button type="submit" class="btn btn-primary">
+                    Guardar
+                </button>
+            }
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Volver
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
