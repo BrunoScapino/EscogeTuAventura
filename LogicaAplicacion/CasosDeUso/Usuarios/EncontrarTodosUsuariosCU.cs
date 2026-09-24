@@ -18,7 +18,7 @@ namespace LogicaAplicacion.CasosDeUso.Usuarios
             this.repositorioUsuarios = repositorioUsuarios;
         }
 
-        public List<UsuarioDTO> EncontrarTodos()
+        /*ublic List<UsuarioDTO> EncontrarTodos()
         {
             List<Usuario> usuarios = repositorioUsuarios.FindAll();
             List<UsuarioDTO> usuariosDTO = new List<UsuarioDTO>();
@@ -28,7 +28,14 @@ namespace LogicaAplicacion.CasosDeUso.Usuarios
                 usuariosDTO.Add(UsuarioMapper.ToDTO(usuario));
             }
 
-            return usuariosDTO;
+            return usuariosDTO;*/
+
+        public List<UsuarioDTO> EncontrarTodos()
+        {
+            return repositorioUsuarios.FindAll()
+                .Select(usuario => UsuarioMapper.ToDTO(usuario))
+                .ToList();
         }
     }
+    
 }
