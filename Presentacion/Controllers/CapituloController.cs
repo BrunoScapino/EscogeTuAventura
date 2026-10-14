@@ -4,6 +4,8 @@ using LogicaAplicacion.InterfacesDeCasoDeUso.Capitulos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
+
 
 namespace Presentacion.Controllers
 {
@@ -49,7 +51,7 @@ namespace Presentacion.Controllers
             {
                 try
                 {
-                    agregarCapitulo.Agregar(capitulo);
+                    agregarCapitulo.Agregar(capitulo, ObtenerAdministradorId());
 
                     TempData["Mensaje"] =
                         "El capítulo y su opción se agregaron correctamente.";
@@ -65,6 +67,10 @@ namespace Presentacion.Controllers
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
                 catch (OpcionException ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                catch (AuditoriaException ex)
                 {
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
@@ -93,6 +99,20 @@ namespace Presentacion.Controllers
                 capitulos,
                 "Id",
                 "Titulo");
+        }
+
+        private int ObtenerAdministradorId()
+        {
+            string? administradorId = User.FindFirstValue(
+                ClaimTypes.NameIdentifier);
+
+            if (!int.TryParse(administradorId, out int id))
+            {
+                throw new UsuarioException(
+                    "No se pudo identificar al administrador logueado.");
+            }
+
+            return id;
         }
     }
 }

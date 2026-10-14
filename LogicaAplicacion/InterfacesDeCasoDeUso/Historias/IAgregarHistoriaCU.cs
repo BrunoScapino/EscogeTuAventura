@@ -7,6 +7,6 @@ namespace LogicaAplicacion.InterfacesDeCasoDeUso.Historias
 {
     public interface IAgregarHistoriaCU
     {
-        void Agregar(HistoriaDTO historia);
+        void Agregar(HistoriaDTO historia,int administradorId);
     }
 }

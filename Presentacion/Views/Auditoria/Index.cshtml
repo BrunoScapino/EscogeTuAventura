@@ -1,0 +1,69 @@
+﻿@model List<DTOs.DTOs.AuditoriaDTO>
+
+@{
+    ViewData["Title"] = "Auditorías";
+}
+
+<h1>Auditorías de historias</h1>
+
+<form method="get" asp-action="Index" class="row g-3 mb-4">
+    <div class="col-md-5">
+        <label class="form-label">Historia</label>
+
+        <select name="historiaId"
+                asp-items="ViewBag.Historias"
+                class="form-select">
+            <option value="">Todas las historias</option>
+        </select>
+    </div>
+
+    <div class="col-md-5">
+        <label class="form-label">Administrador</label>
+
+        <select name="administradorId"
+                asp-items="ViewBag.Administradores"
+                class="form-select">
+            <option value="">Todos los administradores</option>
+        </select>
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">
+            Filtrar
+        </button>
+    </div>
+</form>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-info">
+        No hay auditorías para los filtros seleccionados.
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Acción</th>
+                <th>Historia</th>
+                <th>Administrador</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var auditoria in Model)
+            {
+                <tr>
+                    <td>
+                        @auditoria.Fecha.ToString("dd/MM/yyyy HH:mm")
+                    </td>
+                    <td>@auditoria.Accion</td>
+                    <td>@auditoria.HistoriaTitulo</td>
+                    <td>@auditoria.AdministradorNombreUsuario</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

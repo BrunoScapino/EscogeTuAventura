@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DTOs.DTOs;
+﻿using DTOs.DTOs;
 using EscogeTuAventura.Entidades;
 
 namespace DTOs.Mappers
@@ -16,7 +13,10 @@ namespace DTOs.Mappers
                 Accion = auditoria.Accion.ToString(),
                 Fecha = auditoria.Fecha,
                 AdministradorId = auditoria.Administrador.Id,
-                HistoriaId = auditoria.Historia.Id
+                AdministradorNombreUsuario =
+                    auditoria.Administrador.NombreUsuario,
+                HistoriaId = auditoria.Historia.Id,
+                HistoriaTitulo = auditoria.Historia.Titulo
             };
         }
 

@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="CasosDeUso\Lecturas\" />
-    <Folder Include="CasosDeUso\Auditorias\" />
-    <Folder Include="InterfacesDeCasoDeUso\Auditorias\" />
     <Folder Include="InterfacesDeCasoDeUso\Lecturas\" />
   </ItemGroup>
 

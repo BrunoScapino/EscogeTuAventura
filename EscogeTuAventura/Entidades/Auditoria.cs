@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using EscogeTuAventura.Excepciones;
 using EscogeTuAventura.InterfacesDelDominio;
-using System;
-using EscogeTuAventura.Excepciones;
 
 namespace EscogeTuAventura.Entidades
 {
@@ -21,11 +17,35 @@ namespace EscogeTuAventura.Entidades
 
         public void Validar()
         {
+            if (!Enum.IsDefined(typeof(AccionAuditoria), Accion))
+            {
+                throw new AuditoriaException(
+                    "La acción de auditoría no es válida.");
+            }
+
+            if (Fecha == default)
+            {
+                throw new AuditoriaException(
+                    "La fecha de la auditoría es requerida.");
+            }
+
             if (Administrador == null)
-                throw new AuditoriaException("La auditoría debe tener un administrador.");
+            {
+                throw new AuditoriaException(
+                    "La auditoría debe tener un administrador.");
+            }
+
+            if (Administrador.Rol != Rol.Administrador)
+            {
+                throw new AuditoriaException(
+                    "La auditoría debe ser realizada por un administrador.");
+            }
 
             if (Historia == null)
-                throw new AuditoriaException("La auditoría debe tener una historia.");
+            {
+                throw new AuditoriaException(
+                    "La auditoría debe tener una historia.");
+            }
         }
     }
 }

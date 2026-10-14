@@ -33,6 +33,17 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
         {
             return auditorias;
         }
+        public List<Auditoria> Buscar(int? historiaId,int? administradorId)
+        {
+            return auditorias
+                .Where(auditoria =>
+                    (!historiaId.HasValue ||
+                        auditoria.Historia.Id == historiaId.Value) &&
+                    (!administradorId.HasValue ||
+                        auditoria.Administrador.Id == administradorId.Value))
+                .OrderByDescending(auditoria => auditoria.Fecha)
+                .ToList();
+        }
 
         public void Update(Auditoria obj)
         {

@@ -10,6 +10,8 @@ using LogicaAplicacion.InterfacesDeCasoDeUso.Historias;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Capitulos;
 using LogicaAccesoDatos.EF;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using LogicaAplicacion.CasosDeUso.Auditorias;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Auditorias;
 
 namespace Presentacion
 {
@@ -41,8 +43,7 @@ namespace Presentacion
             builder.Services.AddScoped<IRepositorioCapitulos, RepositorioCapitulosEF>();
             builder.Services.AddScoped<IRepositorioOpciones, RepositorioOpcionesEF>();
             builder.Services.AddScoped<IRepositorioLecturas, RepositorioLecturas>();
-            builder.Services.AddScoped<IRepositorioAuditorias, RepositorioAuditorias>();
-
+            builder.Services.AddScoped<IRepositorioAuditorias, RepositorioAuditoriasEF>();
             // Inicializamos los casos de uso de usuarios.
             builder.Services.AddScoped<IAgregarUsuarioCU, AgregarUsuarioCU>();
             builder.Services.AddScoped<IEncontrarTodosUsuariosCU, EncontrarTodosUsuariosCU>();
@@ -68,6 +69,10 @@ namespace Presentacion
             builder.Services.AddScoped<IAgregarCapituloCU, AgregarCapituloCU>();
             builder.Services.AddScoped<IEncontrarCapitulosPorHistoriaCU, EncontrarCapitulosPorHistoriaCU>();
             builder.Services.AddScoped<IObtenerCapituloPorIdCU, ObtenerCapituloPorIdCU>();
+
+            // Inicializamos los casos de uso de auditorías.
+            builder.Services.AddScoped<IRegistrarAuditoriaCU, RegistrarAuditoriaCU>();
+            builder.Services.AddScoped<IEncontrarAuditoriasCU, EncontrarAuditoriasCU>();
 
             var app = builder.Build();
 

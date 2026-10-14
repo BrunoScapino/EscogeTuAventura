@@ -6,6 +6,7 @@ using EscogeTuAventura.Entidades;
 using EscogeTuAventura.Excepciones;
 using EscogeTuAventura.InterfacesDeRepositorio;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Capitulos;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Auditorias;
 
 namespace LogicaAplicacion.CasosDeUso.Capitulos
 {
@@ -15,17 +16,21 @@ namespace LogicaAplicacion.CasosDeUso.Capitulos
         private IRepositorioCapitulos repositorioCapitulos;
         private IRepositorioOpciones repositorioOpciones;
 
+        private IRegistrarAuditoriaCU registrarAuditoria;
+
         public AgregarCapituloCU(
             IRepositorioHistorias repositorioHistorias,
             IRepositorioCapitulos repositorioCapitulos,
-            IRepositorioOpciones repositorioOpciones)
+            IRepositorioOpciones repositorioOpciones,
+            IRegistrarAuditoriaCU registrarAuditoria)
         {
             this.repositorioHistorias = repositorioHistorias;
             this.repositorioCapitulos = repositorioCapitulos;
             this.repositorioOpciones = repositorioOpciones;
+            this.registrarAuditoria = registrarAuditoria;
         }
 
-        public void Agregar(CapituloDTO capitulo)
+        public void Agregar(CapituloDTO capitulo, int administradorId)
         {
             Historia historia = repositorioHistorias.FindById(capitulo.HistoriaId);
 
@@ -75,6 +80,11 @@ namespace LogicaAplicacion.CasosDeUso.Capitulos
             };
 
             repositorioOpciones.Add(nuevaOpcion);
+
+            registrarAuditoria.Registrar(
+                historia.Id,
+                administradorId,
+                AccionAuditoria.CREACION);
         }
     }
 }

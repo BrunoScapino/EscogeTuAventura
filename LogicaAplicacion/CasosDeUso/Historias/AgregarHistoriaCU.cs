@@ -7,6 +7,7 @@ using EscogeTuAventura.Entidades;
 using EscogeTuAventura.Excepciones;
 using EscogeTuAventura.InterfacesDeRepositorio;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Historias;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Auditorias;
 
 namespace LogicaAplicacion.CasosDeUso.Historias
 {
@@ -15,15 +16,19 @@ namespace LogicaAplicacion.CasosDeUso.Historias
         private IRepositorioHistorias repositorioHistorias;
         private IRepositorioCategorias repositorioCategorias;
 
+        private IRegistrarAuditoriaCU registrarAuditoria;
+
         public AgregarHistoriaCU(
-         IRepositorioHistorias repositorioHistorias,
-         IRepositorioCategorias repositorioCategorias)
+            IRepositorioHistorias repositorioHistorias,
+            IRepositorioCategorias repositorioCategorias,
+            IRegistrarAuditoriaCU registrarAuditoria)
         {
             this.repositorioHistorias = repositorioHistorias;
             this.repositorioCategorias = repositorioCategorias;
+            this.registrarAuditoria = registrarAuditoria;
         }
 
-        public void Agregar(HistoriaDTO historia)
+        public void Agregar(HistoriaDTO historia, int administradorId)
         {
             Historia nuevaHistoria = HistoriaMapper.FromDTO(historia);
 
@@ -53,7 +58,8 @@ namespace LogicaAplicacion.CasosDeUso.Historias
             nuevaHistoria.Capitulos.Add(capituloInicial);
 
             repositorioHistorias.Add(nuevaHistoria);
-            
+
+            registrarAuditoria.Registrar(nuevaHistoria.Id,administradorId,AccionAuditoria.CREACION);
         }
     }
 }

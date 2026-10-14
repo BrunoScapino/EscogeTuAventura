@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DTOs.DTOs
+﻿namespace DTOs.DTOs
 {
     public class AuditoriaDTO
     {
@@ -14,6 +10,11 @@ namespace DTOs.DTOs
 
         public int AdministradorId { get; set; }
 
+        public string AdministradorNombreUsuario { get; set; } =
+            string.Empty;
+
         public int HistoriaId { get; set; }
+
+        public string HistoriaTitulo { get; set; } = string.Empty;
     }
 }

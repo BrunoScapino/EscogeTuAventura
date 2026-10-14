@@ -3,6 +3,7 @@ using EscogeTuAventura.Entidades;
 using EscogeTuAventura.Excepciones;
 using EscogeTuAventura.InterfacesDeRepositorio;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Historias;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Auditorias;
 
 namespace LogicaAplicacion.CasosDeUso.Historias
 {
@@ -11,17 +12,22 @@ namespace LogicaAplicacion.CasosDeUso.Historias
         private IRepositorioHistorias repositorioHistorias;
         private IRepositorioCategorias repositorioCategorias;
 
+        private IRegistrarAuditoriaCU registrarAuditoria;
         public ModificarHistoriaCU(
             IRepositorioHistorias repositorioHistorias,
-            IRepositorioCategorias repositorioCategorias)
+            IRepositorioCategorias repositorioCategorias,
+            IRegistrarAuditoriaCU registrarAuditoria)
         {
             this.repositorioHistorias = repositorioHistorias;
             this.repositorioCategorias = repositorioCategorias;
+            this.registrarAuditoria = registrarAuditoria;
         }
 
-        public void Modificar(HistoriaDTO historia)
+        public void Modificar(HistoriaDTO historia, int administradorId)
         {
             Historia existente = repositorioHistorias.FindById(historia.Id);
+
+            EstadoHistoria estadoAnterior = existente.Estado;
 
             if (historia.Estado != EstadoHistoria.BORRADOR &&
                 historia.Estado != EstadoHistoria.PUBLICADA)
@@ -85,6 +91,23 @@ namespace LogicaAplicacion.CasosDeUso.Historias
             existente.Estado = historia.Estado;
 
             repositorioHistorias.Update(existente);
+
+            AccionAuditoria accion;
+
+            if (estadoAnterior == EstadoHistoria.BORRADOR &&
+                existente.Estado == EstadoHistoria.PUBLICADA)
+            {
+                accion = AccionAuditoria.PUBLICACION;
+            }
+            else
+            {
+                accion = AccionAuditoria.EDICION;
+            }
+
+            registrarAuditoria.Registrar(
+                existente.Id,
+                administradorId,
+                accion);
         }
     }
 }

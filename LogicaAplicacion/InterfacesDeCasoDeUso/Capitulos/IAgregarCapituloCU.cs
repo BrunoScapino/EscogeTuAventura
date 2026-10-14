@@ -7,6 +7,6 @@ namespace LogicaAplicacion.InterfacesDeCasoDeUso.Capitulos
 {
     public interface IAgregarCapituloCU
     {
-        void Agregar(CapituloDTO capitulo);
+        void Agregar(CapituloDTO capitulo, int administradorId);
     }
 }

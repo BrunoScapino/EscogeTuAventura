@@ -5,6 +5,7 @@ using LogicaAplicacion.InterfacesDeCasoDeUso.Historias;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace Presentacion.Controllers
 {
@@ -56,7 +57,7 @@ namespace Presentacion.Controllers
             {
                 try
                 {
-                    agregarHistoria.Agregar(historia);
+                    agregarHistoria.Agregar(historia, ObtenerAdministradorId());
 
                     TempData["Mensaje"] = "La historia se creó correctamente.";
                     return RedirectToAction(nameof(Index));
@@ -70,6 +71,10 @@ namespace Presentacion.Controllers
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
                 catch (CategoriaException ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                catch (AuditoriaException ex)
                 {
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
@@ -113,7 +118,7 @@ namespace Presentacion.Controllers
             {
                 try
                 {
-                    modificarHistoria.Modificar(historia);
+                    modificarHistoria.Modificar(historia, ObtenerAdministradorId());
 
                     TempData["Mensaje"] = "La historia se modificó correctamente.";
                     return RedirectToAction(nameof(Index));
@@ -131,6 +136,10 @@ namespace Presentacion.Controllers
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
                 catch (OpcionException ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                catch (AuditoriaException ex)
                 {
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
@@ -177,7 +186,19 @@ namespace Presentacion.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        private int ObtenerAdministradorId()
+        {
+            string? administradorId = User.FindFirstValue(
+                ClaimTypes.NameIdentifier);
 
+            if (!int.TryParse(administradorId, out int id))
+            {
+                throw new UsuarioException(
+                    "No se pudo identificar al administrador logueado.");
+            }
+
+            return id;
+        }
         private void CargarCategorias()
         {
             var categorias = encontrarCategorias.EncontrarTodas();
