@@ -14,7 +14,8 @@ namespace DTOs.Mappers
             {
                 Id = capitulo.Id,
                 Titulo = capitulo.Titulo,
-                Texto = capitulo.Texto
+                Texto = capitulo.Texto,
+                EsFinal = capitulo is CapituloFinal
             };
         }
     }

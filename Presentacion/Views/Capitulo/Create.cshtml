@@ -1,0 +1,88 @@
+﻿@model DTOs.DTOs.CapituloDTO
+
+@{
+    ViewData["Title"] = "Agregar capítulo";
+}
+
+<h1>Agregar capítulo</h1>
+
+<p>
+    El nuevo capítulo se conectará al capítulo anterior mediante una opción.
+</p>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" method="post">
+            <input asp-for="HistoriaId" type="hidden" />
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="CapituloAnteriorId" class="form-label">
+                    Capítulo anterior
+                </label>
+
+                <select asp-for="CapituloAnteriorId"
+                        asp-items="ViewBag.CapitulosAnteriores"
+                        class="form-select"
+                        required>
+                    <option value="">Seleccioná un capítulo</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TextoOpcion" class="form-label">
+                    Texto de la opción
+                </label>
+
+                <input asp-for="TextoOpcion"
+                       class="form-control"
+                       placeholder="Ejemplo: Abrir la puerta"
+                       required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Titulo" class="form-label">
+                    Título del nuevo capítulo
+                </label>
+
+                <input asp-for="Titulo"
+                       class="form-control"
+                       required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Texto" class="form-label">
+                    Texto del nuevo capítulo
+                </label>
+
+                <textarea asp-for="Texto"
+                          class="form-control"
+                          rows="6"
+                          required></textarea>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="EsFinal" class="form-check-input" />
+
+                <label asp-for="EsFinal" class="form-check-label">
+                    Es un capítulo final
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Agregar capítulo
+            </button>
+
+            <a asp-controller="Historia"
+               asp-action="Index"
+               class="btn btn-secondary">
+                Volver
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -65,6 +65,8 @@ namespace LogicaAplicacion.CasosDeUso.Capitulos
                 };
             }
 
+            repositorioCapitulos.Add(nuevoCapitulo);
+
             Opcion nuevaOpcion = new Opcion
             {
                 Texto = capitulo.TextoOpcion,
@@ -72,10 +74,6 @@ namespace LogicaAplicacion.CasosDeUso.Capitulos
                 CapituloDestino = nuevoCapitulo
             };
 
-            capituloIntermedio.Opciones.Add(nuevaOpcion);
-            historia.Capitulos.Add(nuevoCapitulo);
-
-            repositorioCapitulos.Add(nuevoCapitulo);
             repositorioOpciones.Add(nuevaOpcion);
         }
     }

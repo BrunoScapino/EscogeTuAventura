@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Categoria\" />
-    <Folder Include="Views\Capitulo\" />
     <Folder Include="Views\Lectura\" />
   </ItemGroup>
 

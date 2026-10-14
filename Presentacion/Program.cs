@@ -38,8 +38,8 @@ namespace Presentacion
             builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
             builder.Services.AddScoped<IRepositorioCategorias, RepositorioCategoriasEF>();
             builder.Services.AddScoped<IRepositorioHistorias, RepositorioHistoriasEF>();
-            builder.Services.AddScoped<IRepositorioCapitulos, RepositorioCapitulos>();
-            builder.Services.AddScoped<IRepositorioOpciones, RepositorioOpciones>();
+            builder.Services.AddScoped<IRepositorioCapitulos, RepositorioCapitulosEF>();
+            builder.Services.AddScoped<IRepositorioOpciones, RepositorioOpcionesEF>();
             builder.Services.AddScoped<IRepositorioLecturas, RepositorioLecturas>();
             builder.Services.AddScoped<IRepositorioAuditorias, RepositorioAuditorias>();
 

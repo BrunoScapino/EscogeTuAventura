@@ -59,6 +59,13 @@ else
                             Editar
                         </a>
 
+                        <a asp-controller="Capitulo"
+                           asp-action="Create"
+                           asp-route-historiaId="@historia.Id"
+                           class="btn btn-success btn-sm">
+                            Agregar capítulo
+                        </a>
+
                         <a asp-action="Delete"
                            asp-route-id="@historia.Id"
                            class="btn btn-danger btn-sm">
