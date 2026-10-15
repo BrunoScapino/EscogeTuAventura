@@ -1,0 +1,36 @@
+﻿@model List<PresentacionLectura.Models.HistoriaApiDTO>
+
+@{
+    ViewData["Title"] = "Historias";
+}
+
+<div class="text-center mb-4">
+    <h1>Historias publicadas</h1>
+</div>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+else if (!Model.Any())
+{
+    <p>No hay historias publicadas disponibles.</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var historia in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title">@historia.Titulo</h4>
+                        <p class="card-text">@historia.Sinopsis</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
