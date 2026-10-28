@@ -1,0 +1,92 @@
+﻿@model List<PresentacionLectura.Models.LecturaApiDTO>
+
+@{
+    ViewData["Title"] = "Historial de lecturas";
+
+    int mes = ViewBag.Mes ?? DateTime.Now.Month;
+    int anio = ViewBag.Anio ?? DateTime.Now.Year;
+}
+
+<h1>Historial de lecturas</h1>
+
+<form asp-action="Historial" method="get" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <label class="form-label" for="mes">Mes</label>
+        <input id="mes"
+               name="mes"
+               type="number"
+               min="1"
+               max="12"
+               value="@mes"
+               class="form-control" />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label" for="anio">Año</label>
+        <input id="anio"
+               name="anio"
+               type="number"
+               min="1"
+               value="@anio"
+               class="form-control" />
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary">
+            Buscar
+        </button>
+    </div>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+else if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No existen lecturas para el mes y año seleccionados.
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Historia</th>
+                <th>Inicio</th>
+                <th>Estado</th>
+                <th>Final alcanzado</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var lectura in Model)
+            {
+                <tr>
+                    <td>@lectura.HistoriaTitulo</td>
+                    <td>@lectura.FechaInicio.ToString("dd/MM/yyyy HH:mm")</td>
+
+                    @if (lectura.FechaFinalizacion.HasValue)
+                    {
+                        <td>Completada</td>
+                        <td>@lectura.CapituloFinalTitulo</td>
+                    }
+                    else
+                    {
+                        <td>Pendiente</td>
+                        <td>-</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-controller="Historia"
+   asp-action="Index"
+   class="btn btn-secondary">
+    Volver a historias
+</a>

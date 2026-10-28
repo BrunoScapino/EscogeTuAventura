@@ -9,8 +9,8 @@ namespace LogicaAplicacion.CasosDeUso.Lecturas
 {
     public class FinalizarLecturaCU : IFinalizarLecturaCU
     {
-        private IRepositorioLecturas repositorioLecturas;
-        private IRepositorioCapitulos repositorioCapitulos;
+        private readonly IRepositorioLecturas repositorioLecturas;
+        private readonly IRepositorioCapitulos repositorioCapitulos;
 
         public FinalizarLecturaCU(
             IRepositorioLecturas repositorioLecturas,
@@ -22,10 +22,17 @@ namespace LogicaAplicacion.CasosDeUso.Lecturas
 
         public LecturaDTO Finalizar(
             int lecturaId,
-            int capituloFinalId)
+            int capituloFinalId,
+            int usuarioId)
         {
             Lectura lectura =
                 repositorioLecturas.FindById(lecturaId);
+
+            if (lectura.Usuario.Id != usuarioId)
+            {
+                throw new LecturaException(
+                    "No podés finalizar una lectura de otro usuario.");
+            }
 
             if (lectura.FechaFinalizacion.HasValue)
             {

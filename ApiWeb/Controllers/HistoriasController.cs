@@ -1,10 +1,12 @@
 ﻿using LogicaAplicacion.InterfacesDeCasoDeUso.Historias;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Lector")]
     public class HistoriasController : ControllerBase
     {
         private readonly IEncontrarHistoriasPublicadasCU encontrarHistoriasPublicadas;

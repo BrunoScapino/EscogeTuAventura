@@ -17,10 +17,12 @@ namespace DTOs.Mappers
             dto.HistoriaId = lectura.Historia.Id;
             dto.FechaInicio = lectura.FechaInicio;
             dto.FechaFinalizacion = lectura.FechaFinalizacion;
+            dto.HistoriaTitulo = lectura.Historia.Titulo;
 
             if (lectura.FinalAlcanzado != null)
             {
-                dto.CapituloFinalId = lectura.FinalAlcanzado.Id;
+                dto.CapituloFinalTitulo =
+                    lectura.FinalAlcanzado.Titulo;
             }
 
             return dto;

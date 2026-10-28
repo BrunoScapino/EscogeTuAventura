@@ -29,6 +29,20 @@ else
                 <div class="alert alert-success">
                     Llegaste a un final de la historia.
                 </div>
+
+                @if (ViewBag.MensajeFinalizacion != null)
+                {
+                    <div class="alert alert-info">
+                        @ViewBag.MensajeFinalizacion
+                    </div>
+                }
+
+                @if (ViewBag.ErrorFinalizacion != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.ErrorFinalizacion
+                    </div>
+                }
             }
             else
             {

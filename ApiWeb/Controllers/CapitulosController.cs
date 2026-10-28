@@ -2,11 +2,13 @@
 using LogicaAplicacion.InterfacesDeCasoDeUso.Capitulos;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Opciones;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Lector")]
     public class CapitulosController : ControllerBase
     {
         private readonly IEncontrarCapitulosPorHistoriaCU encontrarPorHistoria;

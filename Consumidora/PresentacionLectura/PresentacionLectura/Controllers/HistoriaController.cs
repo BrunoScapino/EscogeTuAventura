@@ -16,7 +16,14 @@ namespace PresentacionLectura.Controllers
 
         public IActionResult Index(int? categoriaId)
         {
-            CargarCategorias();
+            string? token = HttpContext.Session.GetString("token");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+
+            CargarCategorias(token);
 
             string url = BaseUrl;
 
@@ -28,7 +35,9 @@ namespace PresentacionLectura.Controllers
             HttpResponseMessage respuesta =
                 ClienteHttpAuxiliar.EnviarSolicitud(
                     url,
-                    VerbosHttp.GET);
+                    VerbosHttp.GET,
+                    null,
+                    token);
 
             if (!respuesta.IsSuccessStatusCode)
             {
@@ -51,12 +60,14 @@ namespace PresentacionLectura.Controllers
             return View(historias ?? new List<HistoriaApiDTO>());
         }
 
-        private void CargarCategorias()
+        private void CargarCategorias(string token)
         {
             HttpResponseMessage respuesta =
                 ClienteHttpAuxiliar.EnviarSolicitud(
                     CategoriasUrl,
-                    VerbosHttp.GET);
+                    VerbosHttp.GET,
+                    null,
+                    token);
 
             if (!respuesta.IsSuccessStatusCode)
             {

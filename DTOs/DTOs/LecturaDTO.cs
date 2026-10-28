@@ -17,5 +17,9 @@ namespace DTOs.DTOs
         public DateTime? FechaFinalizacion { get; set; }
 
         public int? CapituloFinalId { get; set; }
+
+        public string HistoriaTitulo { get; set; } = string.Empty;
+
+        public string? CapituloFinalTitulo { get; set; }
     }
 }

@@ -8,10 +8,18 @@ namespace PresentacionLectura.Auxiliar
         public static HttpResponseMessage EnviarSolicitud(
             string url,
             VerbosHttp verbo,
-            object? obj = null)
+            object? obj = null,
+            string? token = null)
         {
             HttpClient cliente = new HttpClient();
             Task<HttpResponseMessage>? tarea = null;
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                cliente.DefaultRequestHeaders.Add(
+                    "Authorization",
+                    "Bearer " + token);
+            }
 
             switch (verbo)
             {
