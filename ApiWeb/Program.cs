@@ -15,6 +15,9 @@ using LogicaAplicacion.CasosDeUso.Opciones;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Opciones;
 using LogicaAplicacion.CasosDeUso.Lecturas;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Lecturas;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ApiWeb
 {
@@ -26,6 +29,37 @@ namespace ApiWeb
 
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
+
+            var claveJwt = Encoding.UTF8.GetBytes(
+            builder.Configuration["Jwt:Key"] ?? string.Empty);
+
+            builder.Services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme =
+                        JwtBearerDefaults.AuthenticationScheme;
+
+                    options.DefaultChallengeScheme =
+                        JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+
+                    options.TokenValidationParameters =
+                        new TokenValidationParameters
+                        {
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey =
+                                new SymmetricSecurityKey(claveJwt)
+                        };
+                });
+
+            builder.Services.AddAuthorization();
 
             // Contexto y repositorios.
             builder.Services.AddScoped<EscogeTuAventuraContext>();
@@ -46,6 +80,7 @@ namespace ApiWeb
             builder.Services.AddScoped<IEncontrarTodosUsuariosCU, EncontrarTodosUsuariosCU>();
             builder.Services.AddScoped<IObtenerUsuarioPorIdCU, ObtenerUsuarioPorIdCU>();
             builder.Services.AddScoped<ILoginAdministradorCU, LoginAdministradorCU>();
+            builder.Services.AddScoped<ILoginUsuarioCU, LoginUsuarioCU>();
 
             // Casos de uso de categorías.
             builder.Services.AddScoped<IAgregarCategoriaCU, AgregarCategoriaCU>();
@@ -89,6 +124,8 @@ namespace ApiWeb
             }
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
