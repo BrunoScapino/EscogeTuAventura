@@ -13,6 +13,8 @@ using LogicaAplicacion.InterfacesDeCasoDeUso.Historias;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Usuarios;
 using LogicaAplicacion.CasosDeUso.Opciones;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Opciones;
+using LogicaAplicacion.CasosDeUso.Lecturas;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Lecturas;
 
 namespace ApiWeb
 {
@@ -37,7 +39,7 @@ namespace ApiWeb
 
             // La lectura todavía usa este repositorio hasta implementar
             // los repositorios EF de lecturas.
-            builder.Services.AddScoped<IRepositorioLecturas, RepositorioLecturas>();
+            builder.Services.AddScoped<IRepositorioLecturas, RepositorioLecturasEF>();
 
             // Casos de uso de usuarios.
             builder.Services.AddScoped<IAgregarUsuarioCU, AgregarUsuarioCU>();
@@ -72,6 +74,11 @@ namespace ApiWeb
             // Casos de uso de auditorías.
             builder.Services.AddScoped<IRegistrarAuditoriaCU, RegistrarAuditoriaCU>();
             builder.Services.AddScoped<IEncontrarAuditoriasCU, EncontrarAuditoriasCU>();
+
+            // Casos de uso de lecturas.
+            builder.Services.AddScoped<IIniciarLecturaCU, IniciarLecturaCU>();
+            builder.Services.AddScoped<IFinalizarLecturaCU, FinalizarLecturaCU>();
+            builder.Services.AddScoped<IEncontrarLecturasPorUsuarioYMesCU, EncontrarLecturasPorUsuarioYMesCU>();
 
             var app = builder.Build();
 

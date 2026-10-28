@@ -11,11 +11,23 @@ namespace PresentacionLectura.Controllers
         private const string BaseUrl =
             "https://localhost:7265/api/Historias";
 
-        public IActionResult Index()
+        private const string CategoriasUrl =
+            "https://localhost:7265/api/Categorias";
+
+        public IActionResult Index(int? categoriaId)
         {
+            CargarCategorias();
+
+            string url = BaseUrl;
+
+            if (categoriaId.HasValue)
+            {
+                url = $"{BaseUrl}/categoria/{categoriaId.Value}";
+            }
+
             HttpResponseMessage respuesta =
                 ClienteHttpAuxiliar.EnviarSolicitud(
-                    BaseUrl,
+                    url,
                     VerbosHttp.GET);
 
             if (!respuesta.IsSuccessStatusCode)
@@ -37,6 +49,33 @@ namespace PresentacionLectura.Controllers
                     });
 
             return View(historias ?? new List<HistoriaApiDTO>());
+        }
+
+        private void CargarCategorias()
+        {
+            HttpResponseMessage respuesta =
+                ClienteHttpAuxiliar.EnviarSolicitud(
+                    CategoriasUrl,
+                    VerbosHttp.GET);
+
+            if (!respuesta.IsSuccessStatusCode)
+            {
+                ViewBag.Categorias = new List<CategoriaApiDTO>();
+                return;
+            }
+
+            string body = ClienteHttpAuxiliar.ObtenerBody(respuesta);
+
+            List<CategoriaApiDTO>? categorias =
+                JsonSerializer.Deserialize<List<CategoriaApiDTO>>(
+                    body,
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+            ViewBag.Categorias =
+                categorias ?? new List<CategoriaApiDTO>();
         }
     }
 }

@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EscogeTuAventura.Entidades;
+﻿using EscogeTuAventura.Entidades;
 
 namespace EscogeTuAventura.InterfacesDeRepositorio
 {
     public interface IRepositorioLecturas : IRepository<Lectura>
     {
+        List<Lectura> BuscarPorUsuarioYMes(
+            int usuarioId,
+            int mes,
+            int anio);
     }
+
+
+
+
 }

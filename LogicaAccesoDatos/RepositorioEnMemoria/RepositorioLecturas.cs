@@ -34,6 +34,20 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
             return lecturas;
         }
 
+        public List<Lectura> BuscarPorUsuarioYMes(
+            int usuarioId,
+            int mes,
+            int anio)
+        {
+            return lecturas
+                .Where(lectura =>
+                    lectura.Usuario.Id == usuarioId &&
+                    lectura.FechaInicio.Month == mes &&
+                    lectura.FechaInicio.Year == anio)
+                .OrderByDescending(lectura => lectura.FechaInicio)
+                .ToList();
+        }
+
         public void Update(Lectura obj)
         {
             // Todavía no implementado

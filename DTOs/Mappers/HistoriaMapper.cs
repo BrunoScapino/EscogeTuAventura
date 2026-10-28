@@ -24,6 +24,7 @@ namespace DTOs.Mappers
             return new HistoriaDTO
             {
                 Id = historia.Id,
+                CapituloInicialId = historia.CapituloInicial?.Id ?? 0,
                 Titulo = historia.Titulo,
                 Sinopsis = historia.Sinopsis,
                 Estado = historia.Estado,

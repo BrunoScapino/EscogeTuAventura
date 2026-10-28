@@ -2,11 +2,58 @@
 
 @{
     ViewData["Title"] = "Historias";
+
+    var categorias = ViewBag.Categorias as
+        List<PresentacionLectura.Models.CategoriaApiDTO>
+        ?? new List<PresentacionLectura.Models.CategoriaApiDTO>();
+
+    string categoriaSeleccionada =
+        Context.Request.Query["categoriaId"].ToString();
 }
 
 <div class="text-center mb-4">
     <h1>Historias publicadas</h1>
 </div>
+
+<form asp-action="Index" method="get" class="mb-4">
+    <div class="row">
+        <div class="col-md-4">
+            <label class="form-label">Categoría</label>
+
+            <select name="categoriaId" class="form-select">
+                <option value="">Todas las categorías</option>
+
+                @foreach (var categoria in categorias)
+                {
+                    if (categoriaSeleccionada == categoria.Id.ToString())
+                    {
+                        <option value="@categoria.Id" selected>
+                            @categoria.Nombre
+                        </option>
+                    }
+                    else
+                    {
+                        <option value="@categoria.Id">
+                            @categoria.Nombre
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">
+                Filtrar
+            </button>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <a asp-action="Index" class="btn btn-secondary">
+                Limpiar
+            </a>
+        </div>
+    </div>
+</form>
 
 @if (ViewBag.Error != null)
 {
@@ -28,6 +75,12 @@ else
                     <div class="card-body">
                         <h4 class="card-title">@historia.Titulo</h4>
                         <p class="card-text">@historia.Sinopsis</p>
+                        <a asp-controller="Lectura"
+                           asp-action="Iniciar"
+                           asp-route-capituloInicialId="@historia.CapituloInicialId"
+                           class="btn btn-primary">
+                            Leer historia
+                        </a>
                     </div>
                 </div>
             </div>

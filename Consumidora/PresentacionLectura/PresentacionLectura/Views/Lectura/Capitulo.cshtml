@@ -1,0 +1,65 @@
+﻿@model PresentacionLectura.Models.CapituloApiDTO
+
+@{
+    ViewData["Title"] = "Lectura";
+
+    var opciones = ViewBag.Opciones as
+        List<PresentacionLectura.Models.OpcionApiDTO>
+        ?? new List<PresentacionLectura.Models.OpcionApiDTO>();
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">@Model.Titulo</h1>
+
+            <p class="card-text">
+                @Model.Texto
+            </p>
+
+            @if (Model.EsFinal)
+            {
+                <div class="alert alert-success">
+                    Llegaste a un final de la historia.
+                </div>
+            }
+            else
+            {
+                <h4 class="mt-4">¿Qué querés hacer?</h4>
+
+                @if (!opciones.Any())
+                {
+                    <div class="alert alert-warning">
+                        Este capítulo no tiene opciones disponibles.
+                    </div>
+                }
+                else
+                {
+                    <div class="d-grid gap-2">
+                        @foreach (var opcion in opciones)
+                        {
+                            <a asp-action="Capitulo"
+                               asp-route-id="@opcion.CapituloDestinoId"
+                               class="btn btn-outline-primary text-start">
+                                @opcion.Texto
+                            </a>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <a asp-controller="Historia"
+       asp-action="Index"
+       class="btn btn-secondary mt-3">
+        Volver a historias
+    </a>
+}
