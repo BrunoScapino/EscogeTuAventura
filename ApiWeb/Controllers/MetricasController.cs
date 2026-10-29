@@ -1,6 +1,7 @@
 ﻿using LogicaAplicacion.InterfacesDeCasoDeUso.Metricas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Historias;
 
 namespace ApiWeb.Controllers
 {
@@ -11,13 +12,16 @@ namespace ApiWeb.Controllers
     {
         private readonly IObtenerRankingHistoriasCU obtenerRankingHistorias;
         private readonly IObtenerEstadisticasFinalesCU obtenerEstadisticasFinales;
+        private readonly IEncontrarTodasHistoriasCU encontrarTodasHistorias;
 
         public MetricasController(
             IObtenerRankingHistoriasCU obtenerRankingHistorias,
-            IObtenerEstadisticasFinalesCU obtenerEstadisticasFinales)
+            IObtenerEstadisticasFinalesCU obtenerEstadisticasFinales,
+            IEncontrarTodasHistoriasCU encontrarTodasHistorias)
         {
             this.obtenerRankingHistorias = obtenerRankingHistorias;
             this.obtenerEstadisticasFinales = obtenerEstadisticasFinales;
+            this.encontrarTodasHistorias = encontrarTodasHistorias;
         }
 
         [HttpGet("ranking-historias")]
@@ -44,6 +48,14 @@ namespace ApiWeb.Controllers
             var estadisticas = obtenerEstadisticasFinales.Obtener(idHistoria);
 
             return Ok(estadisticas);
+        }
+
+        [HttpGet("historias")]
+        public IActionResult ObtenerHistorias()
+        {
+            var historias = encontrarTodasHistorias.EncontrarTodas();
+
+            return Ok(historias);
         }
     }
 }

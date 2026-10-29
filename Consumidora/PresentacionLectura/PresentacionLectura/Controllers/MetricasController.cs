@@ -112,7 +112,7 @@ namespace PresentacionLectura.Controllers
                 return RedirectToAction("Index", "Historia");
             }
 
-            string url = configuracion["ApiUrl"] + "/api/Historias";
+            string url = configuracion["ApiUrl"] + "/api/Metricas/historias";
 
             HttpResponseMessage respuesta = ClienteHttpAuxiliar.EnviarSolicitud(
                 url,
