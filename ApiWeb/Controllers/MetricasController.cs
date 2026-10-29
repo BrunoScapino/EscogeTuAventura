@@ -13,15 +13,18 @@ namespace ApiWeb.Controllers
         private readonly IObtenerRankingHistoriasCU obtenerRankingHistorias;
         private readonly IObtenerEstadisticasFinalesCU obtenerEstadisticasFinales;
         private readonly IEncontrarTodasHistoriasCU encontrarTodasHistorias;
+        private readonly IObtenerRankingUsuariosCU obtenerRankingUsuarios;
 
         public MetricasController(
             IObtenerRankingHistoriasCU obtenerRankingHistorias,
             IObtenerEstadisticasFinalesCU obtenerEstadisticasFinales,
-            IEncontrarTodasHistoriasCU encontrarTodasHistorias)
+            IEncontrarTodasHistoriasCU encontrarTodasHistorias,
+            IObtenerRankingUsuariosCU obtenerRankingUsuarios)
         {
             this.obtenerRankingHistorias = obtenerRankingHistorias;
             this.obtenerEstadisticasFinales = obtenerEstadisticasFinales;
             this.encontrarTodasHistorias = encontrarTodasHistorias;
+            this.obtenerRankingUsuarios = obtenerRankingUsuarios;
         }
 
         [HttpGet("ranking-historias")]
@@ -56,6 +59,24 @@ namespace ApiWeb.Controllers
             var historias = encontrarTodasHistorias.EncontrarTodas();
 
             return Ok(historias);
+        }
+
+        [HttpGet("ranking-usuarios")]
+        public IActionResult ObtenerRankingUsuarios()
+        {
+            try
+            {
+                var ranking = obtenerRankingUsuarios.Obtener();
+
+                return Ok(ranking);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    mensaje = ex.Message
+                });
+            }
         }
     }
 }

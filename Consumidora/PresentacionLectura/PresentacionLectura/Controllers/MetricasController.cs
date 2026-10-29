@@ -138,5 +138,48 @@ namespace PresentacionLectura.Controllers
 
             return View(historias ?? new List<SeleccionHistoriaEstadisticasModel>());
         }
+
+        public IActionResult RankingUsuarios()
+        {
+            string? token = HttpContext.Session.GetString("token");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+
+            string rol = HttpContext.Session.GetString("rol") ?? string.Empty;
+
+            if (rol != "Administrador")
+            {
+                return RedirectToAction("Index", "Historia");
+            }
+
+            string url = configuracion["ApiUrl"] + "/api/Metricas/ranking-usuarios";
+
+            HttpResponseMessage respuesta = ClienteHttpAuxiliar.EnviarSolicitud(
+                url,
+                VerbosHttp.GET,
+                null,
+                token);
+
+            if (!respuesta.IsSuccessStatusCode)
+            {
+                ViewBag.Error = "No se pudo obtener el ranking de usuarios.";
+                return View(new List<RankingUsuarioApiDTO>());
+            }
+
+            string body = ClienteHttpAuxiliar.ObtenerBody(respuesta);
+
+            List<RankingUsuarioApiDTO>? ranking =
+                JsonSerializer.Deserialize<List<RankingUsuarioApiDTO>>(
+                    body,
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+            return View(ranking ?? new List<RankingUsuarioApiDTO>());
+        }
     }
 }

@@ -18,8 +18,6 @@ using LogicaAplicacion.InterfacesDeCasoDeUso.Lecturas;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Metricas;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Opciones;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Usuarios;
-using LogicaAplicacion.CasosDeUso.Metricas;
-using LogicaAplicacion.InterfacesDeCasoDeUso.Metricas;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -119,6 +117,7 @@ namespace ApiWeb
             builder.Services.AddScoped<IFinalizarLecturaCU, FinalizarLecturaCU>();
             builder.Services.AddScoped<IObtenerRankingHistoriasCU, ObtenerRankingHistoriasCU>();
             builder.Services.AddScoped<IObtenerEstadisticasFinalesCU, ObtenerEstadisticasFinalesCU>();
+            builder.Services.AddScoped<IObtenerRankingUsuariosCU, ObtenerRankingUsuariosCU>();
             builder.Services.AddScoped<IEncontrarLecturasPorUsuarioYMesCU, EncontrarLecturasPorUsuarioYMesCU>();
 
             var app = builder.Build();
