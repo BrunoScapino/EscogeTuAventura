@@ -64,6 +64,10 @@ namespace PresentacionLectura.Controllers
                 "token",
                 tokenModel.Token);
 
+            HttpContext.Session.SetString(
+                "rol",
+                tokenModel.Rol);
+
             return RedirectToAction(
                 "Index",
                 "Historia");
@@ -74,6 +78,7 @@ namespace PresentacionLectura.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("token");
+            HttpContext.Session.Remove("rol");
 
             return RedirectToAction(nameof(Login));
         }

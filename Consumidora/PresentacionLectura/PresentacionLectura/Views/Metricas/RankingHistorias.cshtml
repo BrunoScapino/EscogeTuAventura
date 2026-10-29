@@ -1,0 +1,40 @@
+﻿@model List<PresentacionLectura.Models.RankingHistoriaApiDTO>
+
+@{
+    ViewData["Title"] = "Ranking de historias más leídas";
+}
+
+<h1>Ranking de historias más leídas</h1>
+
+@if (Model == null || Model.Count == 0)
+{
+    <p>Todavía no hay historias completadas para mostrar.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Posición</th>
+                <th>Historia</th>
+                <th>Lecturas completadas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int posicion = 1;
+            }
+
+            @foreach (var historia in Model)
+            {
+                <tr>
+                    <td>@posicion</td>
+                    <td>@historia.TituloHistoria</td>
+                    <td>@historia.CantidadLecturasCompletadas</td>
+                </tr>
+
+                posicion++;
+            }
+        </tbody>
+    </table>
+}

@@ -1,3 +1,4 @@
+using System.Text;
 using EscogeTuAventura.InterfacesDeRepositorio;
 using LogicaAccesoDatos.EF;
 using LogicaAccesoDatos.RepositorioEnMemoria;
@@ -5,19 +6,22 @@ using LogicaAplicacion.CasosDeUso.Auditorias;
 using LogicaAplicacion.CasosDeUso.Capitulos;
 using LogicaAplicacion.CasosDeUso.Categorias;
 using LogicaAplicacion.CasosDeUso.Historias;
+using LogicaAplicacion.CasosDeUso.Lecturas;
+using LogicaAplicacion.CasosDeUso.Metricas;
+using LogicaAplicacion.CasosDeUso.Opciones;
 using LogicaAplicacion.CasosDeUso.Usuarios;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Auditorias;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Capitulos;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Categorias;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Historias;
-using LogicaAplicacion.InterfacesDeCasoDeUso.Usuarios;
-using LogicaAplicacion.CasosDeUso.Opciones;
-using LogicaAplicacion.InterfacesDeCasoDeUso.Opciones;
-using LogicaAplicacion.CasosDeUso.Lecturas;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Lecturas;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Metricas;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Opciones;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Usuarios;
+using LogicaAplicacion.CasosDeUso.Metricas;
+using LogicaAplicacion.InterfacesDeCasoDeUso.Metricas;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace ApiWeb
 {
@@ -113,6 +117,7 @@ namespace ApiWeb
             // Casos de uso de lecturas.
             builder.Services.AddScoped<IIniciarLecturaCU, IniciarLecturaCU>();
             builder.Services.AddScoped<IFinalizarLecturaCU, FinalizarLecturaCU>();
+            builder.Services.AddScoped<IObtenerRankingHistoriasCU, ObtenerRankingHistoriasCU>();
             builder.Services.AddScoped<IEncontrarLecturasPorUsuarioYMesCU, EncontrarLecturasPorUsuarioYMesCU>();
 
             var app = builder.Build();

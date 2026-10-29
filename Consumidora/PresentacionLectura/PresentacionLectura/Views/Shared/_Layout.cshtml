@@ -4,6 +4,9 @@
     bool sesionIniciada =
         !string.IsNullOrEmpty(
             Context.Session.GetString("token"));
+        
+    string rol = Context.Session.GetString("rol") ?? string.Empty;
+    bool esAdministrador = rol == "Administrador";
 }
 
 <!DOCTYPE html>
@@ -66,6 +69,16 @@
                                     </button>
                                 </form>
                             </li>
+                            @if (esAdministrador)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark"
+                                           asp-controller="Metricas"
+                                           asp-action="RankingHistorias">
+                                            Ranking de historias
+                                        </a>
+                                    </li>
+                                }
                         }
                         else
                         {

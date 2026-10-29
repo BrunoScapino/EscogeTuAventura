@@ -41,7 +41,8 @@ namespace ApiWeb.Controllers
 
                 return Ok(new
                 {
-                    Token = token
+                    Token = token,
+                    Rol = usuario.Rol
                 });
             }
             catch (UsuarioException ex)
