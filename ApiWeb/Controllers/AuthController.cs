@@ -42,7 +42,7 @@ namespace ApiWeb.Controllers
                 return Ok(new
                 {
                     Token = token,
-                    Rol = usuario.Rol
+                    Rol = usuario.Rol.ToString()
                 });
             }
             catch (UsuarioException ex)
