@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using LogicaAplicacion.InterfacesDeCasoDeUso.Metricas;
+﻿using LogicaAplicacion.InterfacesDeCasoDeUso.Metricas;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiWeb.Controllers
 {
@@ -11,11 +10,14 @@ namespace ApiWeb.Controllers
     public class MetricasController : ControllerBase
     {
         private readonly IObtenerRankingHistoriasCU obtenerRankingHistorias;
+        private readonly IObtenerEstadisticasFinalesCU obtenerEstadisticasFinales;
 
         public MetricasController(
-            IObtenerRankingHistoriasCU obtenerRankingHistorias)
+            IObtenerRankingHistoriasCU obtenerRankingHistorias,
+            IObtenerEstadisticasFinalesCU obtenerEstadisticasFinales)
         {
             this.obtenerRankingHistorias = obtenerRankingHistorias;
+            this.obtenerEstadisticasFinales = obtenerEstadisticasFinales;
         }
 
         [HttpGet("ranking-historias")]
@@ -24,6 +26,14 @@ namespace ApiWeb.Controllers
             var ranking = obtenerRankingHistorias.Obtener();
 
             return Ok(ranking);
+        }
+
+        [HttpGet("estadisticas-finales/{idHistoria}")]
+        public IActionResult ObtenerEstadisticasFinales(int idHistoria)
+        {
+            var estadisticas = obtenerEstadisticasFinales.Obtener(idHistoria);
+
+            return Ok(estadisticas);
         }
     }
 }

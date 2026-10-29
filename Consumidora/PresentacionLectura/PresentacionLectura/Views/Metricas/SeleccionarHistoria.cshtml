@@ -1,0 +1,59 @@
+﻿@model List<PresentacionLectura.Models.SeleccionHistoriaEstadisticasModel>
+
+@{
+    ViewData["Title"] = "Seleccionar historia";
+}
+
+<h1>Estadísticas de finales</h1>
+
+<p>Seleccioná una historia para consultar las estadísticas de sus finales.</p>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@if (Model == null || Model.Count == 0)
+{
+    <p>No hay historias disponibles para consultar.</p>
+}
+else
+{
+    <form asp-controller="Metricas"
+          asp-action="EstadisticasFinales"
+          method="get">
+
+        <div class="form-group mb-3">
+            <label for="idHistoria" class="form-label">
+                Historia
+            </label>
+
+            <select id="idHistoria"
+                    name="idHistoria"
+                    class="form-select"
+                    required>
+
+                <option value="">Seleccioná una historia</option>
+
+                @foreach (var historia in Model)
+                {
+                    <option value="@historia.Id">
+                        @historia.Titulo
+                    </option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Consultar estadísticas
+        </button>
+    </form>
+}
+
+<a asp-controller="Historia"
+   asp-action="Index"
+   class="btn btn-secondary mt-3">
+    Volver a las historias
+</a>

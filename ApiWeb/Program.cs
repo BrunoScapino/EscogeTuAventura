@@ -118,6 +118,7 @@ namespace ApiWeb
             builder.Services.AddScoped<IIniciarLecturaCU, IniciarLecturaCU>();
             builder.Services.AddScoped<IFinalizarLecturaCU, FinalizarLecturaCU>();
             builder.Services.AddScoped<IObtenerRankingHistoriasCU, ObtenerRankingHistoriasCU>();
+            builder.Services.AddScoped<IObtenerEstadisticasFinalesCU, ObtenerEstadisticasFinalesCU>();
             builder.Services.AddScoped<IEncontrarLecturasPorUsuarioYMesCU, EncontrarLecturasPorUsuarioYMesCU>();
 
             var app = builder.Build();

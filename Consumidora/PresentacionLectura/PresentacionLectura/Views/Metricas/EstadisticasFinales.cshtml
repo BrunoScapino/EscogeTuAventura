@@ -1,0 +1,55 @@
+﻿@model List<PresentacionLectura.Models.EstadisticaFinalModel>
+
+@{
+    ViewData["Title"] = "Estadísticas de finales";
+}
+
+<h1>Estadísticas de finales</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@if (Model == null || Model.Count == 0)
+{
+    <p>Esta historia todavía no tiene finales para mostrar.</p>
+}
+else
+{
+    <h4>Historia: @Model[0].TituloHistoria</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Final</th>
+                <th>Veces alcanzado</th>
+                <th>Estadística</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var final in Model)
+            {
+                <tr class="@(final.EsFinalMasAlcanzado ? "table-success" : "")">
+                    <td>@final.TituloFinal</td>
+                    <td>@final.VecesAlcanzado</td>
+                    <td>
+                        @if (final.EsFinalMasAlcanzado)
+                        {
+                            <strong>Final más alcanzado</strong>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-controller="Historia"
+   asp-action="Index"
+   class="btn btn-secondary">
+    Volver a las historias
+</a>
