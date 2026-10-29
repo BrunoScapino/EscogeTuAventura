@@ -23,9 +23,19 @@ namespace ApiWeb.Controllers
         [HttpGet("ranking-historias")]
         public IActionResult ObtenerRankingHistorias()
         {
-            var ranking = obtenerRankingHistorias.Obtener();
+            try
+            {
+                var ranking = obtenerRankingHistorias.Obtener();
 
-            return Ok(ranking);
+                return Ok(ranking);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    mensaje = ex.Message
+                });
+            }
         }
 
         [HttpGet("estadisticas-finales/{idHistoria}")]

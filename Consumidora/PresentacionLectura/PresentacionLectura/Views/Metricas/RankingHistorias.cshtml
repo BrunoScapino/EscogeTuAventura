@@ -6,6 +6,13 @@
 
 <h1>Ranking de historias más leídas</h1>
 
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
 @if (Model == null || Model.Count == 0)
 {
     <p>Todavía no hay historias completadas para mostrar.</p>
