@@ -7,10 +7,22 @@
         
     string rol = Context.Session.GetString("rol") ?? string.Empty;
     bool esAdministrador = rol == "Administrador";
+
+    string tema = Context.Session.GetString("tema") == "oscuro"
+        ? "oscuro"
+        : "claro";
+
+    bool esOscuro = tema == "oscuro";
+
+    string claseTexto = esOscuro ? "text-light" : "text-dark";
+
+    string claseNav = esOscuro
+        ? "navbar-dark bg-dark"
+        : "navbar-light bg-white";
 }
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="@(esOscuro ? "dark" : "light")">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport"
@@ -30,7 +42,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm @claseNav border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand"
                    asp-controller="Historia"
@@ -43,7 +55,7 @@
                         @if (sesionIniciada)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark"
+                                <a class="nav-link @claseTexto"
                                    asp-controller="Historia"
                                    asp-action="Index">
                                     Historias
@@ -51,7 +63,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark"
+                                <a class="nav-link @claseTexto"
                                    asp-controller="Lectura"
                                    asp-action="Historial">
                                     Mi historial
@@ -64,7 +76,7 @@
                                       method="post"
                                       class="d-inline">
                                     <button type="submit"
-                                            class="nav-link text-dark border-0 bg-transparent">
+                                            class="nav-link @claseTexto border-0 bg-transparent">
                                         Cerrar sesión
                                     </button>
                                 </form>
@@ -72,21 +84,21 @@
                             @if (esAdministrador)
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark"
+                                        <a class="nav-link @claseTexto"
                                            asp-controller="Metricas"
                                            asp-action="RankingHistorias">
                                             Ranking de historias
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark"
+                                        <a class="nav-link @claseTexto"
                                            asp-controller="Metricas"
                                            asp-action="SeleccionarHistoria">
                                             Estadísticas de finales
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark"
+                                        <a class="nav-link @claseTexto"
                                            asp-controller="Metricas"
                                            asp-action="RankingUsuarios">
                                             Ranking de usuarios
@@ -97,11 +109,36 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark"
+                                <a class="nav-link @claseTexto"
                                    asp-controller="Auth"
                                    asp-action="Login">
                                     Iniciar sesión
                                 </a>
+                            </li>
+                        }
+
+                        @if (sesionIniciada && !esAdministrador)
+                        {
+                            <li class="nav-item">
+                                <form asp-controller="Tema"
+                                      asp-action="Cambiar"
+                                      method="post"
+                                      class="d-inline">
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="tema"
+                                           value="@(esOscuro ? "claro" : "oscuro")" />
+
+                                    <input type="hidden"
+                                           name="returnUrl"
+                                           value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+
+                                    <button type="submit"
+                                            class="nav-link @claseTexto border-0 bg-transparent">
+                                        @(esOscuro ? "Tema claro" : "Tema oscuro")
+                                    </button>
+                                </form>
                             </li>
                         }
                     </ul>
