@@ -8,37 +8,24 @@ namespace ApiWeb.TokenHandler
 {
     public class JWTHandler
     {
-        public static string GenerarToken(
-            UsuarioDTO usuario,
-            IConfiguration configuration)
+        public static string GenerarToken(UsuarioDTO usuario,IConfiguration configuration)
         {
-            var tokenHandler =
-                new JwtSecurityTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler();
 
-            var clave = Encoding.ASCII.GetBytes(
-                configuration["Jwt:Key"]);
+            var clave = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]);
 
-            var tokenDescriptor =
-                new SecurityTokenDescriptor
+            var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(
                         new Claim[]
                         {
-                            new Claim(
-                                ClaimTypes.NameIdentifier,
-                                usuario.Id.ToString()),
+                            new Claim( ClaimTypes.NameIdentifier,usuario.Id.ToString()),
 
-                            new Claim(
-                                ClaimTypes.Name,
-                                usuario.NombreUsuario),
+                            new Claim( ClaimTypes.Name,usuario.NombreUsuario),
 
-                            new Claim(
-                                ClaimTypes.Email,
-                                usuario.Email),
+                            new Claim( ClaimTypes.Email, usuario.Email),
 
-                            new Claim(
-                                ClaimTypes.Role,
-                                usuario.Rol.ToString())
+                            new Claim( ClaimTypes.Role, usuario.Rol.ToString())
                         }),
 
                     Expires = DateTime.UtcNow.AddMonths(1),
@@ -49,8 +36,7 @@ namespace ApiWeb.TokenHandler
                             SecurityAlgorithms.HmacSha256Signature)
                 };
 
-            var token =
-                tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
         }

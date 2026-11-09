@@ -193,8 +193,7 @@ namespace Presentacion.Controllers
 
             if (!int.TryParse(administradorId, out int id))
             {
-                throw new UsuarioException(
-                    "No se pudo identificar al administrador logueado.");
+                throw new UsuarioException("No se pudo identificar al administrador logueado.");
             }
 
             return id;
@@ -203,10 +202,7 @@ namespace Presentacion.Controllers
         {
             var categorias = encontrarCategorias.EncontrarTodas();
 
-            ViewBag.Categorias = new MultiSelectList(
-                categorias,
-                "Id",
-                "Nombre");
+            ViewBag.Categorias = new MultiSelectList(categorias,"Id","Nombre");
 
             ViewBag.HayCategorias = categorias.Count > 0;
         }

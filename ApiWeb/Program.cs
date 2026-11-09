@@ -38,26 +38,22 @@ namespace ApiWeb
             builder.Services
                 .AddAuthentication(options =>
                 {
-                    options.DefaultAuthenticateScheme =
-                        JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 
-                    options.DefaultChallengeScheme =
-                        JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddJwtBearer(options =>
                 {
                     options.RequireHttpsMetadata = false;
                     options.SaveToken = true;
 
-                    options.TokenValidationParameters =
-                        new TokenValidationParameters
+                    options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateIssuer = false,
                             ValidateAudience = false,
                             ValidateLifetime = true,
                             ValidateIssuerSigningKey = true,
-                            IssuerSigningKey =
-                                new SymmetricSecurityKey(claveJwt)
+                            IssuerSigningKey = new SymmetricSecurityKey(claveJwt)
                         };
                 });
 
@@ -97,16 +93,13 @@ namespace ApiWeb
             builder.Services.AddScoped<IEncontrarTodasHistoriasCU, EncontrarTodasHistoriasCU>();
             builder.Services.AddScoped<IObtenerHistoriaPorIdCU, ObtenerHistoriaPorIdCU>();
             builder.Services.AddScoped<IEncontrarHistoriasPublicadasCU, EncontrarHistoriasPublicadasCU>();
-            builder.Services.AddScoped<IEncontrarHistoriasPublicadasPorCategoriaCU,
-                EncontrarHistoriasPublicadasPorCategoriaCU>();
+            builder.Services.AddScoped<IEncontrarHistoriasPublicadasPorCategoriaCU,EncontrarHistoriasPublicadasPorCategoriaCU>();
 
             // Casos de uso de capítulos.
             builder.Services.AddScoped<IAgregarCapituloCU, AgregarCapituloCU>();
-            builder.Services.AddScoped<IEncontrarCapitulosPorHistoriaCU,
-                EncontrarCapitulosPorHistoriaCU>();
+            builder.Services.AddScoped<IEncontrarCapitulosPorHistoriaCU, EncontrarCapitulosPorHistoriaCU>();
             builder.Services.AddScoped<IObtenerCapituloPorIdCU, ObtenerCapituloPorIdCU>();
-            builder.Services.AddScoped<IEncontrarOpcionesPorCapituloCU,
-            EncontrarOpcionesPorCapituloCU>();
+            builder.Services.AddScoped<IEncontrarOpcionesPorCapituloCU,EncontrarOpcionesPorCapituloCU>();
 
             // Casos de uso de auditorías.
             builder.Services.AddScoped<IRegistrarAuditoriaCU, RegistrarAuditoriaCU>();

@@ -15,9 +15,7 @@ namespace Presentacion.Controllers
         private IAgregarCapituloCU agregarCapitulo;
         private IEncontrarCapitulosPorHistoriaCU encontrarCapitulos;
 
-        public CapituloController(
-            IAgregarCapituloCU agregarCapitulo,
-            IEncontrarCapitulosPorHistoriaCU encontrarCapitulos)
+        public CapituloController(IAgregarCapituloCU agregarCapitulo,IEncontrarCapitulosPorHistoriaCU encontrarCapitulos)
         {
             this.agregarCapitulo = agregarCapitulo;
             this.encontrarCapitulos = encontrarCapitulos;
@@ -53,8 +51,7 @@ namespace Presentacion.Controllers
                 {
                     agregarCapitulo.Agregar(capitulo, ObtenerAdministradorId());
 
-                    TempData["Mensaje"] =
-                        "El capítulo y su opción se agregaron correctamente.";
+                    TempData["Mensaje"] = "El capítulo y su opción se agregaron correctamente.";
 
                     return RedirectToAction("Index", "Historia");
                 }
@@ -95,10 +92,7 @@ namespace Presentacion.Controllers
                 .Where(capitulo => !capitulo.EsFinal)
                 .ToList();
 
-            ViewBag.CapitulosAnteriores = new SelectList(
-                capitulos,
-                "Id",
-                "Titulo");
+            ViewBag.CapitulosAnteriores = new SelectList(capitulos,"Id","Titulo");
         }
 
         private int ObtenerAdministradorId()
@@ -108,8 +102,7 @@ namespace Presentacion.Controllers
 
             if (!int.TryParse(administradorId, out int id))
             {
-                throw new UsuarioException(
-                    "No se pudo identificar al administrador logueado.");
+                throw new UsuarioException("No se pudo identificar al administrador logueado.");
             }
 
             return id;

@@ -37,9 +37,7 @@ namespace ApiWeb.Controllers
 
             try
             {
-                var lectura = iniciarLectura.Iniciar(
-                    usuarioId.Value,
-                    historiaId);
+                var lectura = iniciarLectura.Iniciar(usuarioId.Value,historiaId);
 
                 return StatusCode(201, lectura);
             }
@@ -50,9 +48,7 @@ namespace ApiWeb.Controllers
         }
 
         [HttpPut("{lecturaId}/finalizar/{capituloFinalId}")]
-        public IActionResult Finalizar(
-            int lecturaId,
-            int capituloFinalId)
+        public IActionResult Finalizar(int lecturaId,int capituloFinalId)
         {
             int? usuarioId = ObtenerUsuarioId();
 
@@ -63,10 +59,7 @@ namespace ApiWeb.Controllers
 
             try
             {
-                var lectura = finalizarLectura.Finalizar(
-                    lecturaId,
-                    capituloFinalId,
-                    usuarioId.Value);
+                var lectura = finalizarLectura.Finalizar(lecturaId,capituloFinalId,usuarioId.Value);
 
                 return Ok(lectura);
             }
@@ -88,10 +81,7 @@ namespace ApiWeb.Controllers
 
             try
             {
-                var lecturas = encontrarLecturas.Encontrar(
-                    usuarioId.Value,
-                    mes,
-                    anio);
+                var lecturas = encontrarLecturas.Encontrar(usuarioId.Value,mes,anio);
 
                 return Ok(lecturas);
             }
@@ -103,8 +93,7 @@ namespace ApiWeb.Controllers
 
         private int? ObtenerUsuarioId()
         {
-            string? idUsuario = User.FindFirstValue(
-                ClaimTypes.NameIdentifier);
+            string? idUsuario = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (int.TryParse(idUsuario, out int usuarioId))
             {

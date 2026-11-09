@@ -16,9 +16,7 @@ namespace ApiWeb.Controllers
         private ILoginUsuarioCU loginUsuario;
         private IConfiguration configuration;
 
-        public AuthController(
-            ILoginUsuarioCU loginUsuario,
-            IConfiguration configuration)
+        public AuthController(ILoginUsuarioCU loginUsuario,IConfiguration configuration)
         {
             this.loginUsuario = loginUsuario;
             this.configuration = configuration;
@@ -32,12 +30,9 @@ namespace ApiWeb.Controllers
         {
             try
             {
-                UsuarioDTO usuario =
-                    loginUsuario.Login(login);
+                UsuarioDTO usuario = loginUsuario.Login(login);
 
-                string token = JWTHandler.GenerarToken(
-                    usuario,
-                    configuration);
+                string token = JWTHandler.GenerarToken(usuario,configuration);
 
                 return Ok(new
                 {
@@ -54,8 +49,7 @@ namespace ApiWeb.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(
-                    500,
+                return StatusCode( 500,
                     new
                     {
                         Mensaje =

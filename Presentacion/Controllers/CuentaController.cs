@@ -80,8 +80,7 @@ namespace Presentacion.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction(nameof(Login));
         }
@@ -89,9 +88,7 @@ namespace Presentacion.Controllers
         [AllowAnonymous]
         public IActionResult AccesoDenegado()
         {
-            return StatusCode(
-                403,
-                "No tenés permisos para acceder a esta página.");
+            return StatusCode(403,"No tenés permisos para acceder a esta página.");
         }
     }
 }

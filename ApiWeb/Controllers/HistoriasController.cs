@@ -29,9 +29,7 @@ namespace ApiWeb.Controllers
         [HttpGet("categoria/{categoriaId}")]
         public IActionResult GetPorCategoria(int categoriaId)
         {
-            return Ok(
-                encontrarPorCategoria
-                    .EncontrarPublicadasPorCategoria(categoriaId));
+            return Ok(encontrarPorCategoria.EncontrarPublicadasPorCategoria(categoriaId));
         }
     }
 }

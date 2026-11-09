@@ -7,8 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Categoria\" />
-    <Folder Include="Views\Lectura\" />
+    <Compile Remove="Views\Categoria\**" />
+    <Compile Remove="Views\Lectura\**" />
+    <Content Remove="Views\Categoria\**" />
+    <Content Remove="Views\Lectura\**" />
+    <EmbeddedResource Remove="Views\Categoria\**" />
+    <EmbeddedResource Remove="Views\Lectura\**" />
+    <None Remove="Views\Categoria\**" />
+    <None Remove="Views\Lectura\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -11,8 +11,7 @@ namespace ApiWeb.Controllers
     {
         private readonly IEncontrarTodasCategoriasCU encontrarTodasCategorias;
 
-        public CategoriasController(
-            IEncontrarTodasCategoriasCU encontrarTodasCategorias)
+        public CategoriasController(IEncontrarTodasCategoriasCU encontrarTodasCategorias)
         {
             this.encontrarTodasCategorias = encontrarTodasCategorias;
         }

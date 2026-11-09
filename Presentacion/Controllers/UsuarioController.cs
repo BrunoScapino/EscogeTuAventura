@@ -12,9 +12,7 @@ namespace Presentacion.Controllers
         private IAgregarUsuarioCU agregarUsuario;
         private IEncontrarTodosUsuariosCU encontrarTodosUsuarios;
 
-        public UsuarioController(
-            IAgregarUsuarioCU agregarUsuarioCU,
-            IEncontrarTodosUsuariosCU encontrarTodosUsuariosCU)
+        public UsuarioController(IAgregarUsuarioCU agregarUsuarioCU,IEncontrarTodosUsuariosCU encontrarTodosUsuariosCU)
         {
             agregarUsuario = agregarUsuarioCU;
             encontrarTodosUsuarios = encontrarTodosUsuariosCU;
