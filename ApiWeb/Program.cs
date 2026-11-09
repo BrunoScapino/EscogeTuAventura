@@ -1,7 +1,6 @@
 using System.Text;
 using EscogeTuAventura.InterfacesDeRepositorio;
 using LogicaAccesoDatos.EF;
-using LogicaAccesoDatos.RepositorioEnMemoria;
 using LogicaAplicacion.CasosDeUso.Auditorias;
 using LogicaAplicacion.CasosDeUso.Capitulos;
 using LogicaAplicacion.CasosDeUso.Categorias;

@@ -40,7 +40,7 @@ namespace LogicaAccesoDatos.EF
                 contexto.SaveChanges();
 
                 nueva.CapituloInicial = inicial;
-                contexto.SaveChanges();0
+                contexto.SaveChanges();
 
                 transaccion.Commit();
             }

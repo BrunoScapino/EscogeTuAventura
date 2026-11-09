@@ -1,5 +1,4 @@
 using EscogeTuAventura.InterfacesDeRepositorio;
-using LogicaAccesoDatos.RepositorioEnMemoria;
 using LogicaAplicacion.CasosDeUso.Usuarios;
 using LogicaAplicacion.CasosDeUso.Categorias;
 using LogicaAplicacion.CasosDeUso.Historias;
@@ -41,7 +40,6 @@ namespace Presentacion
             builder.Services.AddScoped<IRepositorioHistorias, RepositorioHistoriasEF>();
             builder.Services.AddScoped<IRepositorioCapitulos, RepositorioCapitulosEF>();
             builder.Services.AddScoped<IRepositorioOpciones, RepositorioOpcionesEF>();
-            builder.Services.AddScoped<IRepositorioLecturas, RepositorioLecturas>();
             builder.Services.AddScoped<IRepositorioAuditorias, RepositorioAuditoriasEF>();
 
             // Inicializamos los casos de uso de usuarios.
