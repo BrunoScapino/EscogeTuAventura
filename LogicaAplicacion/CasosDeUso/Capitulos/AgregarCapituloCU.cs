@@ -36,6 +36,13 @@ namespace LogicaAplicacion.CasosDeUso.Capitulos
             if (historia == null)
                 throw new HistoriaException("La historia no existe.");
 
+            if (historia.Estado == EstadoHistoria.PUBLICADA)
+            {
+                throw new HistoriaException(
+                    "No se pueden agregar capítulos a una historia publicada. " +
+                    "Primero cambiá su estado a Borrador, realizá los cambios y luego volvé a publicarla.");
+            }
+
             Capitulo capituloAnterior = repositorioCapitulos.FindById(capitulo.CapituloAnteriorId);
 
             if (capituloAnterior == null)

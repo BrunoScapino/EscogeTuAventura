@@ -64,7 +64,7 @@ namespace EscogeTuAventura.Entidades
                     if (intermedio.Opciones.Count == 0)
                     {
                         throw new HistoriaException(
-                            "Todos los capítulos intermedios deben tener al menos una opción.");
+                            $"El capítulo intermedio '{intermedio.Titulo}' debe tener al menos una opción.");
                     }
 
                     foreach (Opcion opcion in intermedio.Opciones)
@@ -78,8 +78,61 @@ namespace EscogeTuAventura.Entidades
                                 "Las opciones deben conectar capítulos de la misma historia.");
                         }
                     }
+
                 }
             }
+            foreach (Capitulo capitulo in Capitulos)
+            {
+                if (capitulo is CapituloIntermedio)
+                {
+                    bool puedeLlegarAUnFinal =
+                        PuedeLlegarAUnFinal(
+                            capitulo,
+                            new HashSet<Capitulo>());
+
+                    if (!puedeLlegarAUnFinal)
+                    {
+                        throw new HistoriaException(
+                            $"El capítulo '{capitulo.Titulo}' no tiene ningún camino hacia un final.");
+                    }
+                }
+            }
+        }
+        private bool PuedeLlegarAUnFinal(
+        Capitulo capitulo,
+        HashSet<Capitulo> capitulosVisitados)
+        {
+            if (capitulo is CapituloFinal)
+            {
+                return true;
+            }
+
+            if (capitulo is not CapituloIntermedio capituloIntermedio)
+            {
+                return false;
+            }
+
+            if (capitulosVisitados.Contains(capitulo))
+            {
+                return false;
+            }
+
+            capitulosVisitados.Add(capitulo);
+
+            foreach (Opcion opcion in capituloIntermedio.Opciones)
+            {
+                HashSet<Capitulo> visitadosDeEstaOpcion =
+                    new HashSet<Capitulo>(capitulosVisitados);
+
+                if (PuedeLlegarAUnFinal(
+                    opcion.CapituloDestino,
+                    visitadosDeEstaOpcion))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
