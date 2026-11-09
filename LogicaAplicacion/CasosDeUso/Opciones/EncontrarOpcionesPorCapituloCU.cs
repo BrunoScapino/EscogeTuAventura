@@ -10,8 +10,7 @@ namespace LogicaAplicacion.CasosDeUso.Opciones
     {
         private readonly IRepositorioOpciones repositorioOpciones;
 
-        public EncontrarOpcionesPorCapituloCU(
-            IRepositorioOpciones repositorioOpciones)
+        public EncontrarOpcionesPorCapituloCU( IRepositorioOpciones repositorioOpciones)
         {
             this.repositorioOpciones = repositorioOpciones;
         }

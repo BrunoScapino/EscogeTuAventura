@@ -21,36 +21,26 @@ namespace LogicaAccesoDatos.EF
 
             CapituloIntermedio inicial = nueva.CapituloInicial;
 
-            if (nueva.Estado != EstadoHistoria.BORRADOR ||
-                nueva.Capitulos.Count != 1 ||
-                nueva.Capitulos[0] != inicial ||
-                inicial.Historia != nueva ||
-                inicial.Opciones.Count != 0)
+            if (nueva.Estado != EstadoHistoria.BORRADOR || nueva.Capitulos.Count != 1 || nueva.Capitulos[0] != inicial || inicial.Historia != nueva || inicial.Opciones.Count != 0)
             {
-                throw new HistoriaException(
-                    "La historia debe crearse en borrador, con un único " +
-                    "capítulo inicial sin opciones.");
+                throw new HistoriaException( "La historia debe crearse en borrador, con un único capítulo inicial sin opciones.");
             }
 
             using var transaccion = contexto.Database.BeginTransaction();
 
             try
             {
-                // Primero guardamos la historia sin enlazar el capítulo.
                 nueva.CapituloInicial = null!;
                 nueva.Capitulos.Clear();
-
                 contexto.Historias.Add(nueva);
                 contexto.SaveChanges();
 
-                // Después guardamos el capítulo con la historia ya creada.
                 nueva.Capitulos.Add(inicial);
                 contexto.Capitulos.Add(inicial);
                 contexto.SaveChanges();
 
-                // Finalmente indicamos cuál es el capítulo inicial.
                 nueva.CapituloInicial = inicial;
-                contexto.SaveChanges();
+                contexto.SaveChanges();0
 
                 transaccion.Commit();
             }
@@ -115,8 +105,7 @@ namespace LogicaAccesoDatos.EF
 
         public void Remove(int id)
         {
-            using var transaccion = contexto.Database.BeginTransaction(
-                System.Data.IsolationLevel.Serializable);
+            using var transaccion = contexto.Database.BeginTransaction(System.Data.IsolationLevel.Serializable);
 
             try
             {
@@ -127,30 +116,24 @@ namespace LogicaAccesoDatos.EF
 
                 if (tieneLecturas)
                 {
-                    throw new HistoriaException(
-                        "No se puede eliminar la historia porque tiene lecturas asociadas.");
+                    throw new HistoriaException("No se puede eliminar la historia porque tiene lecturas asociadas.");
                 }
 
-                // Eliminamos las opciones de los capítulos de esta historia.
                 var opciones = contexto.Opciones
                     .Where(opcion => opcion.CapituloOrigen.Historia.Id == id)
                     .ToList();
 
                 contexto.Opciones.RemoveRange(opciones);
 
-                // Quitamos la referencia al capítulo inicial antes de borrarlo.
                 historia.CapituloInicial = null!;
 
-                // Quitamos las asociaciones, conservando las categorías.
                 historia.Categorias.Clear();
 
                 contexto.SaveChanges();
 
-                // Eliminamos los capítulos.
                 contexto.Capitulos.RemoveRange(historia.Capitulos.ToList());
                 contexto.SaveChanges();
 
-                // Finalmente eliminamos la historia.
                 contexto.Historias.Remove(historia);
                 contexto.SaveChanges();
 
@@ -162,9 +145,7 @@ namespace LogicaAccesoDatos.EF
                 contexto.ChangeTracker.Clear();
 
                 throw new HistoriaException(
-                    "No se pudo eliminar la historia porque existen datos relacionados " +
-                    "que impiden completar la operación.",
-                    ex);
+                    "No se pudo eliminar la historia porque existen datos relacionados que impiden completar la operación.", ex);
             }
             catch
             {

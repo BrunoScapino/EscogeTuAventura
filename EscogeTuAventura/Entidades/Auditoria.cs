@@ -19,14 +19,12 @@ namespace EscogeTuAventura.Entidades
         {
             if (!Enum.IsDefined(typeof(AccionAuditoria), Accion))
             {
-                throw new AuditoriaException(
-                    "La acción de auditoría no es válida.");
+                throw new AuditoriaException("La acción de auditoría no es válida.");
             }
 
             if (Fecha == default)
             {
-                throw new AuditoriaException(
-                    "La fecha de la auditoría es requerida.");
+                throw new AuditoriaException("La fecha de la auditoría es requerida.");
             }
 
             if (Administrador == null)

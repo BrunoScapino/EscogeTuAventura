@@ -9,8 +9,7 @@ namespace LogicaAccesoDatos.EF
     {
         private EscogeTuAventuraContext contexto;
 
-        public RepositorioLecturasEF(
-            EscogeTuAventuraContext contexto)
+        public RepositorioLecturasEF( EscogeTuAventuraContext contexto)
         {
             this.contexto = contexto;
         }
@@ -33,8 +32,7 @@ namespace LogicaAccesoDatos.EF
 
             if (lectura == null)
             {
-                throw new LecturaException(
-                    "No se encontró la lectura.");
+                throw new LecturaException( "No se encontró la lectura.");
             }
 
             return lectura;
@@ -48,10 +46,7 @@ namespace LogicaAccesoDatos.EF
                 .Include(lectura => lectura.FinalAlcanzado)
                 .ToList();
         }
-        public List<Lectura> BuscarPorUsuarioYMes(
-            int usuarioId,
-            int mes,
-            int anio)
+        public List<Lectura> BuscarPorUsuarioYMes( int usuarioId, int mes, int anio)
         {
             return contexto.Lecturas
                 .Include(lectura => lectura.Usuario)

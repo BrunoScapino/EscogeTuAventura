@@ -11,27 +11,21 @@ namespace LogicaAplicacion.CasosDeUso.Lecturas
     {
         private IRepositorioLecturas repositorioLecturas;
 
-        public EncontrarLecturasPorUsuarioYMesCU(
-            IRepositorioLecturas repositorioLecturas)
+        public EncontrarLecturasPorUsuarioYMesCU( IRepositorioLecturas repositorioLecturas)
         {
             this.repositorioLecturas = repositorioLecturas;
         }
 
-        public List<LecturaDTO> Encontrar(
-            int usuarioId,
-            int mes,
-            int anio)
+        public List<LecturaDTO> Encontrar(int usuarioId,int mes,int anio)
         {
             if (mes < 1 || mes > 12)
             {
-                throw new LecturaException(
-                    "El mes debe estar entre 1 y 12.");
+                throw new LecturaException("El mes debe estar entre 1 y 12.");
             }
 
             if (anio < 1)
             {
-                throw new LecturaException(
-                    "El año indicado no es válido.");
+                throw new LecturaException("El año indicado no es válido.");
             }
 
             return repositorioLecturas

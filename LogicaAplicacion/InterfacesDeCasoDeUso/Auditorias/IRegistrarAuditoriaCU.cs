@@ -4,9 +4,6 @@ namespace LogicaAplicacion.InterfacesDeCasoDeUso.Auditorias
 {
     public interface IRegistrarAuditoriaCU
     {
-        void Registrar(
-            int historiaId,
-            int administradorId,
-            AccionAuditoria accion);
+        void Registrar( int historiaId, int administradorId, AccionAuditoria accion);
     }
 }

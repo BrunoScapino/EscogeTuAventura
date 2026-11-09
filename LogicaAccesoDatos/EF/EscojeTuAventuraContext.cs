@@ -15,8 +15,7 @@ namespace LogicaAccesoDatos.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(
-                "Server=(localdb)\\MSSQLLocalDB;Database=EscogeTuAventura;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EscogeTuAventura;Trusted_Connection=True;TrustServerCertificate=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,7 +39,7 @@ namespace LogicaAccesoDatos.EF
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Historia>()
-            .Property<int?>("CapituloInicialId");
+                .Property<int?>("CapituloInicialId");
 
             modelBuilder.Entity<Historia>()
                 .HasOne(historia => historia.CapituloInicial)

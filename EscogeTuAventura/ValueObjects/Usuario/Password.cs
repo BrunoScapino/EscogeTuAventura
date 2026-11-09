@@ -25,26 +25,20 @@ namespace EscogeTuAventura.ValueObjects.Usuario
                 throw new UsuarioException("La contraseña es requerida.");
 
             if (Value.Length < 8)
-                throw new UsuarioException(
-                    "La contraseña debe tener al menos 8 caracteres.");
+                throw new UsuarioException("La contraseña debe tener al menos 8 caracteres.");
 
             if (!Value.Any(char.IsUpper))
-                throw new UsuarioException(
-                    "La contraseña debe contener al menos una mayúscula.");
+                throw new UsuarioException("La contraseña debe contener al menos una mayúscula.");
 
             if (!Value.Any(char.IsLower))
-                throw new UsuarioException(
-                    "La contraseña debe contener al menos una minúscula.");
+                throw new UsuarioException("La contraseña debe contener al menos una minúscula.");
 
             if (!Value.Any(char.IsDigit))
-                throw new UsuarioException(
-                    "La contraseña debe contener al menos un número.");
+                throw new UsuarioException("La contraseña debe contener al menos un número.");
 
-            if (!Value.Any(c =>
-                !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c)))
+            if (!Value.Any(c => !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c)))
             {
-                throw new UsuarioException(
-                    "La contraseña debe contener al menos un carácter especial.");
+                throw new UsuarioException("La contraseña debe contener al menos un carácter especial.");
             }
         }
 

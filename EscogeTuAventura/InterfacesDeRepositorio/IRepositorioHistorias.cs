@@ -5,7 +5,5 @@ using EscogeTuAventura.Entidades;
 
 namespace EscogeTuAventura.InterfacesDeRepositorio
 {
-    public interface IRepositorioHistorias : IRepository<Historia>
-    {
-    }
+    public interface IRepositorioHistorias : IRepository<Historia> { }
 }

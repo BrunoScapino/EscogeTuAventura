@@ -15,7 +15,6 @@ namespace LogicaAplicacion.CasosDeUso.Capitulos
         private IRepositorioHistorias repositorioHistorias;
         private IRepositorioCapitulos repositorioCapitulos;
         private IRepositorioOpciones repositorioOpciones;
-
         private IRegistrarAuditoriaCU registrarAuditoria;
 
         public AgregarCapituloCU(

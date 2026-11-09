@@ -9,15 +9,12 @@ namespace LogicaAplicacion.CasosDeUso.Auditorias
     {
         private IRepositorioAuditorias repositorioAuditorias;
 
-        public EncontrarAuditoriasCU(
-            IRepositorioAuditorias repositorioAuditorias)
+        public EncontrarAuditoriasCU( IRepositorioAuditorias repositorioAuditorias)
         {
             this.repositorioAuditorias = repositorioAuditorias;
         }
 
-        public List<AuditoriaDTO> Encontrar(
-            int? historiaId,
-            int? administradorId)
+        public List<AuditoriaDTO> Encontrar(int? historiaId, int? administradorId)
         {
             return repositorioAuditorias
                 .Buscar(historiaId, administradorId)

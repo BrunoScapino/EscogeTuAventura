@@ -44,6 +44,7 @@ namespace Presentacion
             builder.Services.AddScoped<IRepositorioOpciones, RepositorioOpcionesEF>();
             builder.Services.AddScoped<IRepositorioLecturas, RepositorioLecturas>();
             builder.Services.AddScoped<IRepositorioAuditorias, RepositorioAuditoriasEF>();
+
             // Inicializamos los casos de uso de usuarios.
             builder.Services.AddScoped<IAgregarUsuarioCU, AgregarUsuarioCU>();
             builder.Services.AddScoped<IEncontrarTodosUsuariosCU, EncontrarTodosUsuariosCU>();

@@ -7,8 +7,7 @@ namespace LogicaAplicacion.CasosDeUso.Historias
     {
         private IRepositorioHistorias repositorioHistorias;
 
-        public EliminarHistoriaCU(
-            IRepositorioHistorias repositorioHistorias)
+        public EliminarHistoriaCU( IRepositorioHistorias repositorioHistorias)
         {
             this.repositorioHistorias = repositorioHistorias;
         }

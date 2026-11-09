@@ -10,9 +10,6 @@ namespace EscogeTuAventura.Excepciones
 
         public LecturaException(string message) : base(message) { }
 
-        public LecturaException(string? message, Exception? innerException)
-            : base(message, innerException)
-        {
-        }
+        public LecturaException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 }

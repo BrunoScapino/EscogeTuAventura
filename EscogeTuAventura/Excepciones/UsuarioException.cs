@@ -10,9 +10,6 @@ namespace EscogeTuAventura.Excepciones
 
         public UsuarioException(string message) : base(message) { }
 
-        public UsuarioException(string? message, Exception? innerException)
-            : base(message, innerException)
-        {
-        }
+        public UsuarioException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 }

@@ -13,8 +13,7 @@ namespace LogicaAplicacion.CasosDeUso.Usuarios
     {
         private IRepositorioUsuarios repositorioUsuarios;
 
-        public LoginUsuarioCU(
-            IRepositorioUsuarios repositorioUsuarios)
+        public LoginUsuarioCU(IRepositorioUsuarios repositorioUsuarios)
         {
             this.repositorioUsuarios = repositorioUsuarios;
         }
@@ -23,13 +22,10 @@ namespace LogicaAplicacion.CasosDeUso.Usuarios
         {
             if (login == null)
             {
-                throw new UsuarioException(
-                    "Los datos de login son requeridos.");
+                throw new UsuarioException("Los datos de login son requeridos.");
             }
 
-            var usuario = repositorioUsuarios.Login(
-                login.NombreUsuario,
-                login.Password);
+            var usuario = repositorioUsuarios.Login(login.NombreUsuario, login.Password);
 
             return UsuarioMapper.ToDTO(usuario);
         }

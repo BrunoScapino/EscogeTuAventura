@@ -25,22 +25,18 @@ namespace LogicaAplicacion.CasosDeUso.Lecturas
 
         public LecturaDTO Iniciar(int usuarioId, int historiaId)
         {
-            Usuario usuario =
-                repositorioUsuarios.FindById(usuarioId);
+            Usuario usuario = repositorioUsuarios.FindById(usuarioId);
 
             if (usuario.Rol != Rol.Lector)
             {
-                throw new LecturaException(
-                    "Solo los lectores pueden iniciar una lectura.");
+                throw new LecturaException("Solo los lectores pueden iniciar una lectura.");
             }
 
-            Historia historia =
-                repositorioHistorias.FindById(historiaId);
+            Historia historia = repositorioHistorias.FindById(historiaId);
 
             if (historia.Estado != EstadoHistoria.PUBLICADA)
             {
-                throw new LecturaException(
-                    "Solo se pueden leer historias publicadas.");
+                throw new LecturaException("Solo se pueden leer historias publicadas.");
             }
 
             Lectura nuevaLectura = new Lectura

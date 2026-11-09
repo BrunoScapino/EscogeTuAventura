@@ -10,8 +10,7 @@
 
         public int AdministradorId { get; set; }
 
-        public string AdministradorNombreUsuario { get; set; } =
-            string.Empty;
+        public string AdministradorNombreUsuario { get; set; } = string.Empty;
 
         public int HistoriaId { get; set; }
 

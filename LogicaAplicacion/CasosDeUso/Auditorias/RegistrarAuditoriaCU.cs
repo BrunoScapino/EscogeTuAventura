@@ -21,21 +21,15 @@ namespace LogicaAplicacion.CasosDeUso.Auditorias
             this.repositorioUsuarios = repositorioUsuarios;
         }
 
-        public void Registrar(
-            int historiaId,
-            int administradorId,
-            AccionAuditoria accion)
+        public void Registrar(int historiaId,int administradorId,AccionAuditoria accion)
         {
-            Historia historia =
-                repositorioHistorias.FindById(historiaId);
+            Historia historia = repositorioHistorias.FindById(historiaId);
 
-            Usuario administrador =
-                repositorioUsuarios.FindById(administradorId);
+            Usuario administrador = repositorioUsuarios.FindById(administradorId);
 
             if (administrador.Rol != Rol.Administrador)
             {
-                throw new AuditoriaException(
-                    "El usuario indicado no es administrador.");
+                throw new AuditoriaException("El usuario indicado no es administrador.");
             }
 
             Auditoria nuevaAuditoria = new Auditoria

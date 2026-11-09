@@ -14,8 +14,7 @@ namespace LogicaAplicacion.CasosDeUso.Metricas
     {
         private readonly IRepositorioHistorias repositorioHistorias;
 
-        public ObtenerEstadisticasFinalesCU(
-            IRepositorioHistorias repositorioHistorias)
+        public ObtenerEstadisticasFinalesCU(IRepositorioHistorias repositorioHistorias)
         {
             this.repositorioHistorias = repositorioHistorias;
         }
@@ -35,8 +34,7 @@ namespace LogicaAplicacion.CasosDeUso.Metricas
                 return estadisticas;
             }
 
-            int maximoAlcanzado = finales.Max(
-                final => final.VecesAlcanzado);
+            int maximoAlcanzado = finales.Max(final => final.VecesAlcanzado);
 
             foreach (CapituloFinal final in finales)
             {
@@ -47,8 +45,7 @@ namespace LogicaAplicacion.CasosDeUso.Metricas
                     IdFinal = final.Id,
                     TituloFinal = final.Titulo,
                     VecesAlcanzado = final.VecesAlcanzado,
-                    EsFinalMasAlcanzado =
-                        final.VecesAlcanzado == maximoAlcanzado
+                    EsFinalMasAlcanzado = final.VecesAlcanzado == maximoAlcanzado
                 };
 
                 estadisticas.Add(estadistica);

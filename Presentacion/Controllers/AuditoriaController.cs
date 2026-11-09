@@ -26,43 +26,27 @@ namespace Presentacion.Controllers
             this.encontrarUsuarios = encontrarUsuarios;
         }
 
-        public IActionResult Index(
-            int? historiaId,
-            int? administradorId)
+        public IActionResult Index( int? historiaId, int? administradorId)
         {
             CargarFiltros(historiaId, administradorId);
 
-            List<AuditoriaDTO> auditorias =
-                encontrarAuditorias.Encontrar(
-                    historiaId,
-                    administradorId);
+            List<AuditoriaDTO> auditorias = encontrarAuditorias.Encontrar(historiaId, administradorId);
 
             return View(auditorias);
         }
 
-        private void CargarFiltros(
-            int? historiaId,
-            int? administradorId)
+        private void CargarFiltros(int? historiaId,int? administradorId)
         {
             var historias = encontrarHistorias.EncontrarTodas();
 
             var administradores = encontrarUsuarios
                 .EncontrarTodos()
-                .Where(usuario =>
-                    usuario.Rol == Rol.Administrador)
+                .Where(usuario => usuario.Rol == Rol.Administrador)
                 .ToList();
 
-            ViewBag.Historias = new SelectList(
-                historias,
-                "Id",
-                "Titulo",
-                historiaId);
+            ViewBag.Historias = new SelectList(historias,"Id","Titulo",historiaId);
 
-            ViewBag.Administradores = new SelectList(
-                administradores,
-                "Id",
-                "NombreUsuario",
-                administradorId);
+            ViewBag.Administradores = new SelectList(administradores,"Id","NombreUsuario",administradorId);
         }
     }
 }

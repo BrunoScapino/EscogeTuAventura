@@ -10,9 +10,6 @@ namespace EscogeTuAventura.Excepciones
 
         public AuditoriaException(string message) : base(message) { }
 
-        public AuditoriaException(string? message, Exception? innerException)
-            : base(message, innerException)
-        {
-        }
+        public AuditoriaException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 }

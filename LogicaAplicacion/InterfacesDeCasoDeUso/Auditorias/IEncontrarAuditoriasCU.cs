@@ -4,8 +4,6 @@ namespace LogicaAplicacion.InterfacesDeCasoDeUso.Auditorias
 {
     public interface IEncontrarAuditoriasCU
     {
-        List<AuditoriaDTO> Encontrar(
-            int? historiaId,
-            int? administradorId);
+        List<AuditoriaDTO> Encontrar( int? historiaId,int? administradorId);
     }
 }

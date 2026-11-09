@@ -10,9 +10,6 @@ namespace EscogeTuAventura.Excepciones
 
         public OpcionException(string message) : base(message) { }
 
-        public OpcionException(string? message, Exception? innerException)
-            : base(message, innerException)
-        {
-        }
+        public OpcionException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 }

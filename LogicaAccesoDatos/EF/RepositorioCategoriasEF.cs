@@ -16,7 +16,6 @@ namespace LogicaAccesoDatos.EF
         public void Add(Categoria nueva)
         {
             nueva.Validar();
-
             contexto.Categorias.Add(nueva);
             contexto.SaveChanges();
         }
@@ -35,8 +34,7 @@ namespace LogicaAccesoDatos.EF
 
             if (categoria == null)
             {
-                throw new CategoriaException(
-                    "No se encontró la categoría.");
+                throw new CategoriaException("No se encontró la categoría.");
             }
 
             return categoria;
@@ -45,10 +43,8 @@ namespace LogicaAccesoDatos.EF
         public void Update(Categoria nueva)
         {
             nueva.Validar();
-
             Categoria existente = FindById(nueva.Id);
             existente.Nombre = nueva.Nombre;
-
             contexto.SaveChanges();
         }
 
@@ -61,8 +57,7 @@ namespace LogicaAccesoDatos.EF
 
             if (estaEnUso)
             {
-                throw new CategoriaException(
-                    "No se puede eliminar una categoría asociada a historias.");
+                throw new CategoriaException("No se puede eliminar una categoría asociada a historias.");
             }
 
             contexto.Categorias.Remove(categoria);

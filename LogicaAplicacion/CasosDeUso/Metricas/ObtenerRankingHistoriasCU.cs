@@ -12,8 +12,7 @@ namespace LogicaAplicacion.CasosDeUso.Metricas
     {
         private readonly IRepositorioLecturas repositorioLecturas;
 
-        public ObtenerRankingHistoriasCU(
-            IRepositorioLecturas repositorioLecturas)
+        public ObtenerRankingHistoriasCU(IRepositorioLecturas repositorioLecturas)
         {
             this.repositorioLecturas = repositorioLecturas;
         }

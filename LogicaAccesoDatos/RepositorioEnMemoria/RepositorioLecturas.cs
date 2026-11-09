@@ -40,22 +40,9 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
             int anio)
         {
             return lecturas
-                .Where(lectura =>
-                    lectura.Usuario.Id == usuarioId &&
-                    lectura.FechaInicio.Month == mes &&
-                    lectura.FechaInicio.Year == anio)
+                .Where(lectura => lectura.Usuario.Id == usuarioId && lectura.FechaInicio.Month == mes && lectura.FechaInicio.Year == anio)
                 .OrderByDescending(lectura => lectura.FechaInicio)
                 .ToList();
-        }
-
-        public void Update(Lectura obj)
-        {
-            // Todavía no implementado
-        }
-
-        public void Remove(int id)
-        {
-            // Todavía no implementado
         }
     }
 }

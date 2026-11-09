@@ -17,7 +17,6 @@ namespace LogicaAccesoDatos.EF
         public void Add(Capitulo nuevo)
         {
             nuevo.Validar();
-
             contexto.Capitulos.Add(nuevo);
             contexto.SaveChanges();
         }
@@ -53,7 +52,6 @@ namespace LogicaAccesoDatos.EF
         public void Remove(int id)
         {
             Capitulo capitulo = FindById(id);
-
             contexto.Capitulos.Remove(capitulo);
             contexto.SaveChanges();
         }

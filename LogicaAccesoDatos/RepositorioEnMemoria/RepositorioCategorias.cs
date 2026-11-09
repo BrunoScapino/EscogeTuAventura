@@ -33,15 +33,5 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
         {
             return categorias;
         }
-
-        public void Update(Categoria obj)
-        {
-            // Todavía no implementado
-        }
-
-        public void Remove(int id)
-        {
-            // Todavía no implementado
-        }
     }
 }

@@ -10,9 +10,6 @@ namespace EscogeTuAventura.Excepciones
 
         public HistoriaException(string message) : base(message) { }
 
-        public HistoriaException(string? message, Exception? innerException)
-            : base(message, innerException)
-        {
-        }
+        public HistoriaException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 }

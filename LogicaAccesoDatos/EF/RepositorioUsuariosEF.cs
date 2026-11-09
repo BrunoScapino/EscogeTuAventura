@@ -22,8 +22,7 @@ namespace LogicaAccesoDatos.EF
 
             if (existe)
             {
-                throw new UsuarioException(
-                    "Ya existe un usuario con ese nombre de usuario.");
+                throw new UsuarioException("Ya existe un usuario con ese nombre de usuario.");
             }
 
             contexto.Usuarios.Add(nuevo);
@@ -55,8 +54,7 @@ namespace LogicaAccesoDatos.EF
 
             if (usuario == null || !usuario.Password.Verify(password))
             {
-                throw new UsuarioException(
-                    "Usuario o contraseña incorrectos.");
+                throw new UsuarioException( "Usuario o contraseña incorrectos.");
             }
 
             return usuario;
@@ -74,8 +72,7 @@ namespace LogicaAccesoDatos.EF
 
             if (nombreOcupado)
             {
-                throw new UsuarioException(
-                    "Ya existe un usuario con ese nombre de usuario.");
+                throw new UsuarioException("Ya existe un usuario con ese nombre de usuario.");
             }
 
             existente.NombreCompleto = nuevo.NombreCompleto;

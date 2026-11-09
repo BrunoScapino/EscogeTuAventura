@@ -10,9 +10,6 @@ namespace EscogeTuAventura.Excepciones
 
         public CapituloException(string message) : base(message) { }
 
-        public CapituloException(string? message, Exception? innerException)
-            : base(message, innerException)
-        {
-        }
+        public CapituloException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 }

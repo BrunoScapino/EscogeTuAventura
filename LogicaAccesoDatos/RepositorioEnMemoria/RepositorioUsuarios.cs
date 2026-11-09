@@ -46,15 +46,5 @@ namespace LogicaAccesoDatos.RepositorioEnMemoria
 
             return null;
         }
-
-        public void Update(Usuario obj)
-        {
-            // Todavía no es necesario para los requerimientos actuales.
-        }
-
-        public void Remove(int id)
-        {
-            // Todavía no es necesario para los requerimientos actuales.
-        }
     }
 }

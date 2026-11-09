@@ -20,39 +20,30 @@ namespace LogicaAplicacion.CasosDeUso.Lecturas
             this.repositorioCapitulos = repositorioCapitulos;
         }
 
-        public LecturaDTO Finalizar(
-            int lecturaId,
-            int capituloFinalId,
-            int usuarioId)
+        public LecturaDTO Finalizar(int lecturaId,int capituloFinalId,int usuarioId)
         {
-            Lectura lectura =
-                repositorioLecturas.FindById(lecturaId);
+            Lectura lectura = repositorioLecturas.FindById(lecturaId);
 
             if (lectura.Usuario.Id != usuarioId)
             {
-                throw new LecturaException(
-                    "No podés finalizar una lectura de otro usuario.");
+                throw new LecturaException("No podés finalizar una lectura de otro usuario.");
             }
 
             if (lectura.FechaFinalizacion.HasValue)
             {
-                throw new LecturaException(
-                    "La lectura ya fue finalizada.");
+                throw new LecturaException("La lectura ya fue finalizada.");
             }
 
-            Capitulo capitulo =
-                repositorioCapitulos.FindById(capituloFinalId);
+            Capitulo capitulo = repositorioCapitulos.FindById(capituloFinalId);
 
             if (capitulo is not CapituloFinal capituloFinal)
             {
-                throw new LecturaException(
-                    "El capítulo indicado no es un final.");
+                throw new LecturaException("El capítulo indicado no es un final.");
             }
 
             if (capituloFinal.Historia.Id != lectura.Historia.Id)
             {
-                throw new LecturaException(
-                    "El final no pertenece a la historia leída.");
+                throw new LecturaException("El final no pertenece a la historia leída.");
             }
 
             lectura.FechaFinalizacion = DateTime.Now;

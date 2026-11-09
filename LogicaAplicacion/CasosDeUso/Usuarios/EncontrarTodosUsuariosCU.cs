@@ -17,19 +17,6 @@ namespace LogicaAplicacion.CasosDeUso.Usuarios
         {
             this.repositorioUsuarios = repositorioUsuarios;
         }
-
-        /*ublic List<UsuarioDTO> EncontrarTodos()
-        {
-            List<Usuario> usuarios = repositorioUsuarios.FindAll();
-            List<UsuarioDTO> usuariosDTO = new List<UsuarioDTO>();
-
-            foreach (Usuario usuario in usuarios)
-            {
-                usuariosDTO.Add(UsuarioMapper.ToDTO(usuario));
-            }
-
-            return usuariosDTO;*/
-
         public List<UsuarioDTO> EncontrarTodos()
         {
             return repositorioUsuarios.FindAll()
