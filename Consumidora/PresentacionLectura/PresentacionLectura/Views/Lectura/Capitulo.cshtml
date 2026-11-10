@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Lectura";
 
-    var opciones = ViewBag.Opciones as List<PresentacionLectura.Models.OpcionApiDTO>
-        
+    var opciones = ViewBag.Opciones as List<PresentacionLectura.Models.OpcionApiDTO>;
+
     if (opciones == null)
         {
             opciones = new List<PresentacionLectura.Models.OpcionApiDTO>();
