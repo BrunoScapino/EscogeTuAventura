@@ -8,11 +8,17 @@ namespace PresentacionLectura.Controllers
 {
     public class LecturaController : Controller
     {
-        private const string CapitulosUrl =
+        /*private const string CapitulosUrl =
             "https://localhost:7265/api/Capitulos";
 
         private const string LecturasUrl =
-            "https://localhost:7265/api/Lecturas";
+            "https://localhost:7265/api/Lecturas";*/
+
+        private const string CapitulosUrl =
+            "http://escojetuaventura.somee.com/api/Capitulos";
+
+        private const string LecturasUrl =
+            "http://escojetuaventura.somee.com/api/Lecturas";
 
         public IActionResult Iniciar(
             int historiaId,
