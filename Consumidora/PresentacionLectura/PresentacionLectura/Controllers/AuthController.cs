@@ -9,7 +9,8 @@ namespace PresentacionLectura.Controllers
     public class AuthController : Controller
     {
         private const string LoginUrl =
-            "https://localhost:7265/api/Auth/login";
+            "http://escojetuaventura.somee.com/api/Auth/login";
+         //"https://localhost:7265/api/Auth/login";
 
         [HttpGet]
         public IActionResult Login()
@@ -66,7 +67,14 @@ namespace PresentacionLectura.Controllers
 
             HttpContext.Session.SetString(
                 "rol",
-                tokenModel.Rol);
+                 tokenModel.Rol);
+
+            if (tokenModel.Rol == "Administrador")
+            {
+                return RedirectToAction(
+                    "RankingHistorias",
+                    "Metricas");
+            }
 
             return RedirectToAction(
                 "Index",

@@ -19,6 +19,7 @@ using LogicaAplicacion.InterfacesDeCasoDeUso.Opciones;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Usuarios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiWeb
 {
@@ -58,8 +59,11 @@ namespace ApiWeb
 
             builder.Services.AddAuthorization();
 
-            // Contexto y repositorios.
-            builder.Services.AddScoped<EscogeTuAventuraContext>();
+            string connectionString =
+            builder.Configuration.GetConnectionString("EscogeTuAventura") ?? throw new InvalidOperationException("No se encontró la cadena de conexión.");
+
+            builder.Services.AddDbContext<EscogeTuAventuraContext>(
+                options => options.UseSqlServer(connectionString));
 
             builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
             builder.Services.AddScoped<IRepositorioCategorias, RepositorioCategoriasEF>();

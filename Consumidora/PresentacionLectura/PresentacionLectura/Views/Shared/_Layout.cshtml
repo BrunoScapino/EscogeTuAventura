@@ -54,6 +54,7 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (sesionIniciada)
                         {
+                            @if(!esAdministrador){
                             <li class="nav-item">
                                 <a class="nav-link @claseTexto"
                                    asp-controller="Historia"
@@ -69,6 +70,7 @@
                                     Mi historial
                                 </a>
                             </li>
+                            }
 
                             <li class="nav-item">
                                 <form asp-controller="Auth"

@@ -5,6 +5,13 @@ namespace LogicaAccesoDatos.EF
 {
     public class EscogeTuAventuraContext : DbContext
     {
+
+        public EscogeTuAventuraContext(
+            DbContextOptions<EscogeTuAventuraContext> options)
+            : base(options)
+        {
+        }
+
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Historia> Historias { get; set; }
@@ -13,10 +20,7 @@ namespace LogicaAccesoDatos.EF
         public DbSet<Lectura> Lecturas { get; set; }
         public DbSet<Auditoria> Auditorias { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EscogeTuAventura;Trusted_Connection=True;TrustServerCertificate=True;");
-        }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

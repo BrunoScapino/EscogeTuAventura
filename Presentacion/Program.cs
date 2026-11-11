@@ -11,6 +11,7 @@ using LogicaAccesoDatos.EF;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using LogicaAplicacion.CasosDeUso.Auditorias;
 using LogicaAplicacion.InterfacesDeCasoDeUso.Auditorias;
+using Microsoft.EntityFrameworkCore;
 
 namespace Presentacion
 {
@@ -34,7 +35,11 @@ namespace Presentacion
             builder.Services.AddAuthorization();
 
             // Inicializamos los repositorios en memoria disponibles en el proyecto.
-            builder.Services.AddScoped<EscogeTuAventuraContext>();
+            string connectionString =
+            builder.Configuration.GetConnectionString("EscogeTuAventura") ?? throw new InvalidOperationException("No se encontró la cadena de conexión.");
+
+            builder.Services.AddDbContext<EscogeTuAventuraContext>(
+                options => options.UseSqlServer(connectionString));
             builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
             builder.Services.AddScoped<IRepositorioCategorias, RepositorioCategoriasEF>();
             builder.Services.AddScoped<IRepositorioHistorias, RepositorioHistoriasEF>();
